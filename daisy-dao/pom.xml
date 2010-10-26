@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @version $Id: pom.xml 2126 2010-02-02 23:36:25Z rpoetz $ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>jar</packaging>
+
+  <parent>
+    <groupId>com.indoqa.daisy</groupId>
+    <artifactId>daisy-parent</artifactId>
+    <version>1.5.1.1-SNAPSHOT</version>
+    <relativePath>../daisy-parent</relativePath>
+  </parent>
+  <artifactId>daisy-dao</artifactId>
+  <name>Indoqa Daisy: DAO</name>
+  <description>Accessing a Daisy repository with DAOs or Cocoon pipeline components.</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.cocoon.sax</groupId>
+      <artifactId>cocoon-sax</artifactId>
+    </dependency>
+    <dependency>
+       <groupId>org.apache.cocoon</groupId>
+       <artifactId>cocoon-configuration-api</artifactId>
+    </dependency>
+
+    <!-- Spring (+ AOP support)-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+    </dependency>
+
+    <!-- other dependencies -->
+    <dependency>
+      <groupId>org.apache.avalon.framework</groupId>
+      <artifactId>avalon-framework-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+    </dependency>
+
+    <!-- Internal dependencies -->
+    <dependency>
+      <groupId>com.indoqa.daisy</groupId>
+      <artifactId>daisy-java-adapter</artifactId>
+    </dependency>
+
+    <!-- Test dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
