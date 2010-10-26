@@ -8,27 +8,6 @@
                        http://cocoon.apache.org/schema/pipeline http://cocoon.apache.org/schema/pipeline/cocoon-pipeline-1.0.xsd"
    default-init-method="init">
 
-  <!-- Daisy repository -->
-  <bean id="org.daisycms.clientapps.adapter.credentials.repo" class="org.daisycms.clientapp.adapter.DaisyCredentials"
-    scope="singleton" 
-    p:login="${org.daisycms.clientapps.adapter.credentials.repo.login}" 
-    p:password="${org.daisycms.clientapps.adapter.credentials.repo.password}"
-  />
-
-  <bean id="org.daisycms.clientapps.adapter.credentials.remote" class="org.daisycms.clientapp.adapter.DaisyCredentials"
-    scope="singleton" 
-    p:login="${org.daisycms.clientapps.adapter.credentials.remote.login}" 
-    p:password="${org.daisycms.clientapps.adapter.credentials.remote.password}"
-  />
-
-  <bean id="org.daisycms.clientapp.adapter.DaisyRepositoryAccessFacade" class="org.daisycms.clientapp.adapter.DaisyRepositoryAccessFacade"
-    scope="singleton" 
-    lazy-init="true"
-    p:serverUrl="${org.daisycms.clientapp.adapter.DaisyRepositoryAccessFacade.serverUrl}">
-    <property name="repoCredentials" ref="org.daisycms.clientapps.adapter.credentials.repo"/>
-    <property name="remoteAccessCredentials" ref="org.daisycms.clientapps.adapter.credentials.remote"/>
-  </bean>
-
   <!-- generators -->
   <bean name="generator:daisy-doc" class="org.daisycms.clientapp.cocoon.DaisyGenerator" scope="prototype"
     p:annotationNavDocId="${org.daisycms.clientapp.cocoon.navDoc}">
