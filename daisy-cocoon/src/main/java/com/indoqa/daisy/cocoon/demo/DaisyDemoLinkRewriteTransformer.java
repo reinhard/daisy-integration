@@ -1,6 +1,6 @@
 package com.indoqa.daisy.cocoon.demo;
 
-import com.indoqa.daisy.dao.pipeline.DaisyLinkRewriteTransformer;
+import com.indoqa.daisy.pipeline.DaisyLinkRewriteTransformer;
 
 public class DaisyDemoLinkRewriteTransformer extends DaisyLinkRewriteTransformer {
 

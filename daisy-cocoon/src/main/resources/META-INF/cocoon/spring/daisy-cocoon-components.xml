@@ -9,17 +9,17 @@
    default-init-method="init">
 
   <!-- generators -->
-  <bean name="generator:daisy-doc" class="com.indoqa.daisy.dao.pipeline.DaisyGenerator" scope="prototype"
+  <bean name="generator:daisy-doc" class="com.indoqa.daisy.pipeline.DaisyGenerator" scope="prototype"
     p:annotationNavDocId="${com.indoqa.daisy.cocoon.navDoc}">
     <property name="daisyAccessFacade" ref="com.indoqa.daisy.adapter.DaisyRepositoryAccessFacade"/>
     <property name="cocoonSettings" ref="org.apache.cocoon.configuration.Settings"/>
   </bean>
 
   <!-- transformers -->
-  <bean name="transformer:daisy-linkrewrite" class="com.indoqa.daisy.dao.pipeline.DaisyLinkRewriteTransformer" scope="prototype" />
+  <bean name="transformer:daisy-linkrewrite" class="com.indoqa.daisy.pipeline.DaisyLinkRewriteTransformer" scope="prototype" />
 
   <!-- readers -->
-  <bean name="reader:daisy-binary-part" class="com.indoqa.daisy.dao.pipeline.DaisyBinaryPartReader" scope="prototype"
+  <bean name="reader:daisy-binary-part" class="com.indoqa.daisy.pipeline.DaisyBinaryPartReader" scope="prototype"
     p:annotationNavDocId="${com.indoqa.daisy.cocoon.navDoc}">
     <property name="daisyAccessFacade" ref="com.indoqa.daisy.adapter.DaisyRepositoryAccessFacade"/>
     <property name="cocoonSettings" ref="org.apache.cocoon.configuration.Settings"/>
