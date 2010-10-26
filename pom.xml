@@ -17,6 +17,7 @@
   
   <modules>
     <module>daisy-cocoon</module>
+    <module>daisy-dao</module>
     <module>daisy-java-adapter</module>
     <module>daisy-parent</module>
   </modules>

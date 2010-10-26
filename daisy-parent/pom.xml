@@ -63,6 +63,11 @@
         <artifactId>daisy-java-adapter</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.indoqa.daisy</groupId>
+        <artifactId>daisy-dao</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
       <!-- Daisy -->
       <dependency>
@@ -141,6 +146,21 @@
         <groupId>org.apache.cocoon.rest</groupId>
         <artifactId>cocoon-rest</artifactId>
         <version>3.0.0-alpha-2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cocoon.sax</groupId>
+        <artifactId>cocoon-sax</artifactId>
+        <version>3.0.0-alpha-2</version>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.cocoon</groupId>
+         <artifactId>cocoon-configuration-api</artifactId>
+         <version>1.0.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cocoon</groupId>
+        <artifactId>cocoon-spring-configurator</artifactId>
+        <version>2.1.0</version>
       </dependency>
 
       <!-- Spring (+ AOP support)-->
