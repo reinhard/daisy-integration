@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns:p="http://outerx.org/daisy/1.0#publisher" xmlns:d="http://outerx.org/daisy/1.0">
+  <head>
+    <title>[cocoon-daisy-block] Page 1</title>
+  </head>
+  <body class="daisy-doc">
+    <h1 xmlns:ns="http://outerx.org/daisy/1.0">Links zu Binaries</h1>
+    <ul xmlns:ns="http://outerx.org/daisy/1.0">
+      <li>
+        Link zu einem
+        <a href="daisy:636">
+          <p:linkInfo href="daisy:636" documentName="20090104-testdoc" documentType="Attachment">
+            <p:linkPartInfo id="4" name="AttachmentData" fileName="20090104-testdoc.pdf" />
+          </p:linkInfo>
+          PDF
+        </a>
+      </li>
+      <li>
+        Link zu einem
+        <a href="daisy:637">
+          <p:linkInfo href="daisy:637" documentName="20090104-testdoc" documentType="Attachment">
+            <p:linkPartInfo id="4" name="AttachmentData" fileName="20090104-testdoc.zip" />
+          </p:linkInfo>
+          ZIP
+        </a>
+      </li>
+    </ul>
+    <h1 xmlns:ns="http://outerx.org/daisy/1.0">Links zu anderen Dokumenten</h1>
+    <ul xmlns:ns="http://outerx.org/daisy/1.0">
+      <li>
+        Link zu Page 3:
+        <a href="daisy:634" p:navigationPath="/folder1/folder2/page3.html">
+          <p:linkInfo href="daisy:634" documentName="[cocoon-daisy-block] Page 3" documentType="Webpage">
+            <p:linkPartInfo id="13" name="WebpagePartGerman" />
+            <p:linkPartInfo id="14" name="WebpagePartEnglish" />
+          </p:linkInfo>
+          Page 3
+        </a>
+      </li>
+    </ul>
+    <h1 xmlns:ns="http://outerx.org/daisy/1.0">Externer Link</h1>
+    <ul xmlns:ns="http://outerx.org/daisy/1.0">
+      <li>
+        <a href="http://www.heise.de">heise.de</a>
+      </li>
+
+    </ul>
+    <h1 xmlns:ns="http://outerx.org/daisy/1.0">Ein Bild</h1>
+    <p xmlns:ns="http://outerx.org/daisy/1.0">
+      <img src="daisy:638" p:imageWidth="109" p:imageHeight="61">
+        <p:linkInfo src="daisy:638" documentName="daisy-test-doc" documentType="Image">
+          <p:linkPartInfo id="3" name="ImageData" fileName="daisy-test-doc.png" />
+          <p:linkPartInfo id="18" name="ImageThumbnail" />
+          <p:linkPartInfo id="19" name="ImagePreview" />
+        </p:linkInfo>
+      </img>
+    </p>
+  </body>
+</html>

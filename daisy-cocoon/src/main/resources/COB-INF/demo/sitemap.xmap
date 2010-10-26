@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: sitemap.xmap 1555 2009-01-06 12:27:07Z rpoetz $ -->
+<map:sitemap xmlns:map="http://apache.org/cocoon/sitemap" xmlns:servlet="http://apache.org/cocoon/servlet" 
+  xmlns:controller="http://apache.org/cocoon/controller"> 
+
+  <map:pipelines>    
+    <!-- DEMO PIPELINES -->
+    <!-- ............................................................................. -->       
+    <map:pipeline>      
+      <map:match value="{jexl:cocoon.settings.runningMode}" equals="IT">
+        <map:match pattern="part/{part}/**">
+          <map:generate src="servlet:daisy-cocoon:/default/ext/part/{map:part}/{map:2}" />
+          <map:transform type="daisy-demo-linkrewrite" currentPath="part/{map:part}/{map:2}"/>
+          <map:serialize type="xhtml" />
+        </map:match> 
+        <map:match pattern="data/{id}/{fileName}">
+          <map:read src="servlet:daisy-cocoon:/default/ext/data/{map:id}/{map:fileName}" />
+        </map:match>
+        <map:match pattern="image/{id}/{fileName}">
+          <map:read src="servlet:daisy-cocoon:/default/ext/image/{map:id}/{map:fileName}" />        
+        </map:match>
+      </map:match>    
+    </map:pipeline>      
+
+    <!-- ERROR HANDLING -->
+    <!-- ............................................................................. -->
+    <map:handle-errors>
+      <map:generate type="exception" />
+      <map:serialize type="xml" status-code="500" />
+    </map:handle-errors>
+  </map:pipelines>
+</map:sitemap>

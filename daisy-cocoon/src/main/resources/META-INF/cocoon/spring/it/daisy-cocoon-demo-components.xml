@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: daisy-cocoon-demo-components.xml 1572 2009-02-11 11:42:31Z rpoetz $ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:pipeline="http://cocoon.apache.org/schema/pipeline"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                       http://cocoon.apache.org/schema/pipeline http://cocoon.apache.org/schema/pipeline/cocoon-pipeline-1.0.xsd"
+   default-init-method="init">
+  
+  <!-- transformers -->
+  <bean name="transformer:daisy-demo-linkrewrite" class="org.daisycms.clientapp.cocoon.demo.DaisyDemoLinkRewriteTransformer" scope="prototype" />
+
+</beans>

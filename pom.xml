@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>  
+
+  <parent>
+    <groupId>com.indoqa</groupId>
+    <artifactId>indoqa-maven-root</artifactId>
+    <version>7</version>
+  </parent>     
+  
+  <groupId>com.indoqa.daisy</groupId>
+  <artifactId>daisy-root</artifactId>
+  <version>1.5.1.1-SNAPSHOT</version>
+  
+  <name>Indoqa Daisy: CMS Client Applications Modules [root]</name>
+  
+  <modules>
+    <module>daisy-cocoon</module>
+    <module>daisy-java-adapter</module>
+    <module>daisy-parent</module>
+  </modules>
+
+  <scm>
+    <connection>scm:svn:http://svn.dev.indoqa.com/projects/daisy/trunk</connection>
+    <developerConnection>scm:svn:http://svn.dev.indoqa.com/projects/daisy/trunk</developerConnection>
+    <url>http://svn.dev.indoqa.com/projects/daisy/trunk</url>
+  </scm>
+</project>

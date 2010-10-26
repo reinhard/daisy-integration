@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: daisy-cocoon-components.xml 1554 2009-01-06 12:01:31Z rpoetz $ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:pipeline="http://cocoon.apache.org/schema/pipeline"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                       http://cocoon.apache.org/schema/pipeline http://cocoon.apache.org/schema/pipeline/cocoon-pipeline-1.0.xsd"
+   default-init-method="init">
+
+  <!-- Daisy repository -->
+  <bean id="org.daisycms.clientapps.adapter.credentials.repo" class="org.daisycms.clientapp.adapter.DaisyCredentials"
+    scope="singleton" 
+    p:login="${org.daisycms.clientapps.adapter.credentials.repo.login}" 
+    p:password="${org.daisycms.clientapps.adapter.credentials.repo.password}"
+  />
+
+  <bean id="org.daisycms.clientapps.adapter.credentials.remote" class="org.daisycms.clientapp.adapter.DaisyCredentials"
+    scope="singleton" 
+    p:login="${org.daisycms.clientapps.adapter.credentials.remote.login}" 
+    p:password="${org.daisycms.clientapps.adapter.credentials.remote.password}"
+  />
+
+  <bean id="org.daisycms.clientapp.adapter.DaisyRepositoryAccessFacade" class="org.daisycms.clientapp.adapter.DaisyRepositoryAccessFacade"
+    scope="singleton" 
+    lazy-init="true"
+    p:serverUrl="${org.daisycms.clientapp.adapter.DaisyRepositoryAccessFacade.serverUrl}">
+    <property name="repoCredentials" ref="org.daisycms.clientapps.adapter.credentials.repo"/>
+    <property name="remoteAccessCredentials" ref="org.daisycms.clientapps.adapter.credentials.remote"/>
+  </bean>
+
+  <!-- generators -->
+  <bean name="generator:daisy-doc" class="org.daisycms.clientapp.cocoon.DaisyGenerator" scope="prototype"
+    p:annotationNavDocId="${org.daisycms.clientapp.cocoon.navDoc}">
+    <property name="daisyAccessFacade" ref="org.daisycms.clientapp.adapter.DaisyRepositoryAccessFacade"/>
+    <property name="cocoonSettings" ref="org.apache.cocoon.configuration.Settings"/>
+  </bean>
+  
+  <!-- transformers -->
+  <bean name="transformer:daisy-linkrewrite" class="org.daisycms.clientapp.cocoon.DaisyLinkRewriteTransformer" scope="prototype" />
+  
+  <!-- readers -->
+  <bean name="reader:daisy-binary-part" class="org.daisycms.clientapp.cocoon.DaisyBinaryPartReader" scope="prototype"
+    p:annotationNavDocId="${org.daisycms.clientapp.cocoon.navDoc}">
+    <property name="daisyAccessFacade" ref="org.daisycms.clientapp.adapter.DaisyRepositoryAccessFacade"/>
+    <property name="cocoonSettings" ref="org.apache.cocoon.configuration.Settings"/>
+  </bean>
+
+  <!-- Resource Repository -->
+  <bean name="org.daisycms.clientapp.cocoon.ResourceRepository" class="org.daisycms.clientapp.cocoon.ResourceRepository" scope="singleton">
+    <property name="resourceDocPath" value="${org.daisycms.clientapp.cocoon.resourceDoc.path}" />
+    <property name="resourceDocServlet" ref="${org.daisycms.clientapp.cocoon.resourceDoc.servlet}" />  
+  </bean>
+  
+  <!-- controller -->
+  <bean name="org.daisycms.clientapp.cocoon.controller.DocumentByPathController" class="org.daisycms.clientapp.cocoon.controller.DocumentByPathController"
+    scope="prototype">
+    <property name="repository" ref="org.daisycms.clientapp.cocoon.ResourceRepository" />
+  </bean>
+  
+  <bean name="org.daisycms.clientapp.cocoon.controller.DocumentPartByPathController" class="org.daisycms.clientapp.cocoon.controller.DocumentPartByPathController"
+    scope="prototype">
+    <property name="repository" ref="org.daisycms.clientapp.cocoon.ResourceRepository" />
+  </bean>
+</beans>
