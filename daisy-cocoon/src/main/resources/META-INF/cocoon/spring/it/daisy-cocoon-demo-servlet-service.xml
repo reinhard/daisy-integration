@@ -5,11 +5,11 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
                            http://cocoon.apache.org/schema/servlet http://cocoon.apache.org/schema/servlet/cocoon-servlet-1.0.xsd">
 
-  <bean id="org.daisycms.clientapp.cocoon.servlet.demo" class="org.apache.cocoon.servlet.XMLSitemapServlet">
+  <bean id="com.indoqa.daisy.cocoon.servlet.demo" class="org.apache.cocoon.servlet.XMLSitemapServlet">
     <servlet:context mount-path="/daisy-cocoon-demo" context-path="blockcontext:/daisy-cocoon/demo/">
       <servlet:connections>
-        <entry key="daisy-cocoon" value-ref="org.daisycms.clientapp.cocoon.servlet" />
-      </servlet:connections>    
+        <entry key="daisy-cocoon" value-ref="com.indoqa.daisy.cocoon.servlet" />
+      </servlet:connections>
     </servlet:context>
   </bean>
 </beans>

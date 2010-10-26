@@ -88,7 +88,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>**/daisycms/clientapp/cocoon/it/**</exclude>
+            <exclude>**/cocoon/it/**</exclude>
           </excludes>
         </configuration>
       </plugin>

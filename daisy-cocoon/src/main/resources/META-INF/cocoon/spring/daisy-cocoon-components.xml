@@ -9,36 +9,36 @@
    default-init-method="init">
 
   <!-- generators -->
-  <bean name="generator:daisy-doc" class="org.daisycms.clientapp.cocoon.DaisyGenerator" scope="prototype"
-    p:annotationNavDocId="${org.daisycms.clientapp.cocoon.navDoc}">
-    <property name="daisyAccessFacade" ref="org.daisycms.clientapp.adapter.DaisyRepositoryAccessFacade"/>
+  <bean name="generator:daisy-doc" class="com.indoqa.daisy.dao.pipeline.DaisyGenerator" scope="prototype"
+    p:annotationNavDocId="${com.indoqa.daisy.cocoon.navDoc}">
+    <property name="daisyAccessFacade" ref="com.indoqa.daisy.adapter.DaisyRepositoryAccessFacade"/>
     <property name="cocoonSettings" ref="org.apache.cocoon.configuration.Settings"/>
   </bean>
-  
+
   <!-- transformers -->
-  <bean name="transformer:daisy-linkrewrite" class="org.daisycms.clientapp.cocoon.DaisyLinkRewriteTransformer" scope="prototype" />
-  
+  <bean name="transformer:daisy-linkrewrite" class="com.indoqa.daisy.dao.pipeline.DaisyLinkRewriteTransformer" scope="prototype" />
+
   <!-- readers -->
-  <bean name="reader:daisy-binary-part" class="org.daisycms.clientapp.cocoon.DaisyBinaryPartReader" scope="prototype"
-    p:annotationNavDocId="${org.daisycms.clientapp.cocoon.navDoc}">
-    <property name="daisyAccessFacade" ref="org.daisycms.clientapp.adapter.DaisyRepositoryAccessFacade"/>
+  <bean name="reader:daisy-binary-part" class="com.indoqa.daisy.dao.pipeline.DaisyBinaryPartReader" scope="prototype"
+    p:annotationNavDocId="${com.indoqa.daisy.cocoon.navDoc}">
+    <property name="daisyAccessFacade" ref="com.indoqa.daisy.adapter.DaisyRepositoryAccessFacade"/>
     <property name="cocoonSettings" ref="org.apache.cocoon.configuration.Settings"/>
   </bean>
 
   <!-- Resource Repository -->
-  <bean name="org.daisycms.clientapp.cocoon.ResourceRepository" class="org.daisycms.clientapp.cocoon.ResourceRepository" scope="singleton">
-    <property name="resourceDocPath" value="${org.daisycms.clientapp.cocoon.resourceDoc.path}" />
-    <property name="resourceDocServlet" ref="${org.daisycms.clientapp.cocoon.resourceDoc.servlet}" />  
+  <bean name="com.indoqa.daisy.cocoon.ResourceRepository" class="com.indoqa.daisy.cocoon.ResourceRepository" scope="singleton">
+    <property name="resourceDocPath" value="${com.indoqa.daisy.cocoon.resourceDoc.path}" />
+    <property name="resourceDocServlet" ref="${com.indoqa.daisy.cocoon.resourceDoc.servlet}" />
   </bean>
-  
+
   <!-- controller -->
-  <bean name="org.daisycms.clientapp.cocoon.controller.DocumentByPathController" class="org.daisycms.clientapp.cocoon.controller.DocumentByPathController"
+  <bean name="com.indoqa.daisy.cocoon.controller.DocumentByPathController" class="com.indoqa.daisy.cocoon.controller.DocumentByPathController"
     scope="prototype">
-    <property name="repository" ref="org.daisycms.clientapp.cocoon.ResourceRepository" />
+    <property name="repository" ref="com.indoqa.daisy.cocoon.ResourceRepository" />
   </bean>
-  
-  <bean name="org.daisycms.clientapp.cocoon.controller.DocumentPartByPathController" class="org.daisycms.clientapp.cocoon.controller.DocumentPartByPathController"
+
+  <bean name="com.indoqa.daisy.cocoon.controller.DocumentPartByPathController" class="com.indoqa.daisy.cocoon.controller.DocumentPartByPathController"
     scope="prototype">
-    <property name="repository" ref="org.daisycms.clientapp.cocoon.ResourceRepository" />
+    <property name="repository" ref="com.indoqa.daisy.cocoon.ResourceRepository" />
   </bean>
 </beans>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- $Id: sitemap.xmap 1555 2009-01-06 12:27:07Z rpoetz $ -->
-<map:sitemap xmlns:map="http://apache.org/cocoon/sitemap" xmlns:servlet="http://apache.org/cocoon/servlet" 
-  xmlns:controller="http://apache.org/cocoon/controller"> 
+<map:sitemap xmlns:map="http://apache.org/cocoon/sitemap" xmlns:servlet="http://apache.org/cocoon/servlet"
+  xmlns:controller="http://apache.org/cocoon/controller">
 
   <map:pipelines>
     <map:pipeline>
       <!-- EXTERNAL USAGE -->
-      <!-- ............................................................................. -->      
+      <!-- ............................................................................. -->
       <!-- Get an attachment (binary) -->
       <map:match pattern="default/ext/data/{id}/{fileName}">
         <map:read type="daisy-binary-part" documentId="{map:id}" fileName="{map:fileName}" part="AttachmentData"/>
@@ -14,15 +14,15 @@
       <!-- Get an image -->
       <map:match pattern="default/ext/image/{id}/{fileName}">
         <map:read type="daisy-binary-part" documentId="{map:id}" fileName="{map:fileName}" part="ImageData"/>
-      </map:match>      
+      </map:match>
       <!-- Get a document part by path -->
       <map:match pattern="default/ext/part/{part}/**">
-        <controller:call controller="rest-controller" select="org.daisycms.clientapp.cocoon.controller.DocumentPartByPathController">
+        <controller:call controller="rest-controller" select="com.indoqa.daisy.cocoon.controller.DocumentPartByPathController">
           <map:parameter name="path" value="{map:2}" />
           <map:parameter name="part" value="{map:part}" />
         </controller:call>
       </map:match>
-    
+
       <!-- INTERNAL USAGE -->
       <!-- DOCUMENTS BY ID -->
       <!-- ............................................................................. -->
@@ -31,9 +31,9 @@
         <map:generate type="daisy-doc" documentId="{map:id}"/>
         <map:serialize type="xml" />
       </map:match>
-      
+
       <!-- DOCUMENT -->
-      <!-- ............................................................................. -->      
+      <!-- ............................................................................. -->
       <!-- Get a Daisy document part -->
       <map:match pattern="default/doc/id/{id}/part/{part}.html">
         <map:generate type="daisy-doc" documentId="{map:id}" part="{map:part}"/>
@@ -42,24 +42,24 @@
           <map:parameter name="alternativeTitle" value="{jexl:cocoon.request.alternativeTitle}" />
         </map:transform>
         <map:serialize type="xml" />
-      </map:match>   
+      </map:match>
       <!-- Get the complete document by path -->
       <map:match pattern="default/doc/path/**.xml">
-        <controller:call controller="rest-controller" select="org.daisycms.clientapp.cocoon.controller.DocumentByPathController">
+        <controller:call controller="rest-controller" select="com.indoqa.daisy.cocoon.controller.DocumentByPathController">
           <map:parameter name="path" value="{map:1}" />
         </controller:call>
-      </map:match>      
-      
+      </map:match>
+
       <!-- NAVIGATION DOCUMENT -->
-      <!-- ............................................................................. -->      
+      <!-- ............................................................................. -->
       <!-- Get the complete navigation document -->
       <map:match pattern="default/nav-doc/default.simple.xml">
-        <map:generate src="servlet:/default/nav-doc/id/{jexl:cocoon.settings.getProperty('org.daisycms.clientapp.cocoon.navDoc')}.simple.xml" />
+        <map:generate src="servlet:/default/nav-doc/id/{jexl:cocoon.settings.getProperty('com.indoqa.daisy.cocoon.navDoc')}.simple.xml" />
         <map:serialize type="xml" />
       </map:match>
       <!-- Get the default navigation document -->
       <map:match pattern="default/nav-doc/default.xml">
-        <map:generate src="servlet:/default/nav-doc/id/{jexl:cocoon.settings.getProperty('org.daisycms.clientapp.cocoon.navDoc')}.xml" />
+        <map:generate src="servlet:/default/nav-doc/id/{jexl:cocoon.settings.getProperty('com.indoqa.daisy.cocoon.navDoc')}.xml" />
         <map:serialize type="xml" />
       </map:match>
       <!-- Get a navigation document transformed into a simpler syntax -->
@@ -73,22 +73,22 @@
       <map:match pattern="default/nav-doc/id/{id}.xml">
         <map:generate type="daisy-doc" documentId="{map:id}" isNavDoc="true"/>
         <map:serialize type="xml" />
-      </map:match>      
+      </map:match>
     </map:pipeline>
-    
+
     <!-- UTILITY PIPELINES -->
-    <!-- ............................................................................. -->          
+    <!-- ............................................................................. -->
     <map:pipeline>
       <map:match pattern="util/error/404.html">
         <map:generate src="error-handling/404.xml" />
         <map:serialize type="xhtml" status-code="404" />
       </map:match>
-    </map:pipeline>  
+    </map:pipeline>
 
     <!-- ERROR HANDLING -->
-    <!-- ............................................................................. -->          
+    <!-- ............................................................................. -->
     <map:handle-errors>
-      <map:match value="{jexl:cocoon.settings.runningMode}" equals="IT">
+      <map:match value="{jexl:cocoon.settings.runningMode}" equals="it">
         <map:generate type="exception" />
         <map:serialize type="xml" status-code="500"/>
       </map:match>

@@ -13,7 +13,7 @@
   <artifactId>daisy-root</artifactId>
   <version>1.5.1.1-SNAPSHOT</version>
   
-  <name>Indoqa Daisy: CMS Client Applications Modules [root]</name>
+  <name>Indoqa Daisy: Root</name>
   
   <modules>
     <module>daisy-cocoon</module>
