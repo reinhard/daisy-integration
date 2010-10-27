@@ -36,6 +36,14 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
         this.linkRewriteTranslationTable = linkRewriteTranslationTable;
     }
 
+    private static String replaceIfNotNull(Object parameter, String defaultValue) {
+        if (parameter == null) {
+            return defaultValue;
+        }
+
+        return (String) parameter;
+    }
+
     @Override
     public final void endElement(String uri, String localName, String name) throws SAXException {
         if (PUBLISHER_NS.equals(uri)) {
@@ -44,9 +52,8 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
 
         if (this.currentElement != null && (localName.equals("a") || localName.equals("img"))) {
             SAXBuffer saxBuffer = this.endSAXRecording();
-            super.startElement(this.currentElement.getUri(), this.currentElement.getLocalName(), this.currentElement
-                    .getName(), this.rewriteAttributes(localName, this.currentElement.getAtttributes(),
-                    this.currentLinkInfo));
+            super.startElement(this.currentElement.getUri(), this.currentElement.getLocalName(), this.currentElement.getName(), this
+                    .rewriteAttributes(this.currentElement.getAtttributes(), this.currentLinkInfo));
             saxBuffer.toSAX(this.getSAXConsumer());
             this.currentElement = null;
         }
@@ -136,22 +143,24 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
     }
 
     protected String replaceVariables(String expression, LinkInfo linkInfo) {
-        expression = expression.replace("{id}", linkInfo.getDocumentId());
-        expression = expression.replace("{filename}", linkInfo.getFileName());
+        String result = expression;
 
-        return expression;
+        result = result.replace("{id}", linkInfo.getDocumentId());
+        result = result.replace("{filename}", linkInfo.getFileName());
+
+        return result;
     }
 
     protected String rewriteAttachementLink(LinkInfo linkInfo) {
         return this.getPathRelativizer() + this.replaceVariables(this.dataUrl, linkInfo);
     }
 
-    protected String rewriteClassAttribute(LinkInfo currentLinkInfo, String initialClassValue) {
-        if (currentLinkInfo.getDocumentType() == null) {
+    protected String rewriteClassAttribute(LinkInfo linkInfo, String initialClassValue) {
+        if (linkInfo.getDocumentType() == null) {
             return "";
         }
 
-        String daisyClass = "daisy-document-" + currentLinkInfo.getDocumentType().toLowerCase();
+        String daisyClass = "daisy-document-" + linkInfo.getDocumentType().toLowerCase();
         if (StringUtils.isBlank(initialClassValue)) {
             return daisyClass;
         }
@@ -193,7 +202,7 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
         return newLink;
     }
 
-    private Attributes rewriteAttributes(String localElementName, Attributes atts, LinkInfo currentLinkInfo) {
+    private Attributes rewriteAttributes(Attributes atts, LinkInfo linkInfo) {
         AttributesImpl rewrittenAtts = new AttributesImpl();
 
         String classValue = "";
@@ -211,7 +220,7 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
 
             // rewrite links
             if (eachLocalName.equals("href") || eachLocalName.equals("src")) {
-                eachValue = this.rewriteLinkAttribute(currentLinkInfo);
+                eachValue = this.rewriteLinkAttribute(linkInfo);
             }
 
             if (eachLocalName.equals("class")) {
@@ -223,18 +232,9 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
         }
 
         // add class with document name
-        rewrittenAtts.addAttribute("", "class", "class", "PCDATA", this.rewriteClassAttribute(currentLinkInfo,
-                classValue));
+        rewrittenAtts.addAttribute("", "class", "class", "PCDATA", this.rewriteClassAttribute(linkInfo, classValue));
 
         return rewrittenAtts;
-    }
-
-    private static String replaceIfNotNull(Object parameter, String defaultValue) {
-        if (parameter == null) {
-            return defaultValue;
-        }
-
-        return (String) parameter;
     }
 
     protected static class LinkInfo {
@@ -299,10 +299,13 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
         }
 
         public void setNavigationPath(String navigationPath) {
+            String result = navigationPath;
+
             if (navigationPath != null && navigationPath.startsWith("/")) {
-                navigationPath = navigationPath.substring(1);
+                result = navigationPath.substring(1);
             }
-            this.navigationPath = navigationPath;
+
+            this.navigationPath = result;
         }
 
         public void setSource(String source) {
@@ -311,8 +314,8 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
 
         @Override
         public String toString() {
-            return "LinkInfo[documentId=" + this.getDocumentId() + ", navigationPath=" + this.navigationPath
-                    + ", source=" + this.source + ", href=" + this.href + ", fileName=" + this.fileName + "]";
+            return "LinkInfo[documentId=" + this.getDocumentId() + ", navigationPath=" + this.navigationPath + ", source="
+                    + this.source + ", href=" + this.href + ", fileName=" + this.fileName + "]";
         }
     }
 

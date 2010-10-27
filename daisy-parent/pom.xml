@@ -153,6 +153,11 @@
         <version>3.0.0-alpha-2</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.cocoon.sitemap</groupId>
+        <artifactId>cocoon-sitemap</artifactId>
+        <version>3.0.0-alpha-2</version>
+      </dependency>
+      <dependency>
          <groupId>org.apache.cocoon</groupId>
          <artifactId>cocoon-configuration-api</artifactId>
          <version>1.0.2</version>
@@ -201,6 +206,11 @@
       </dependency>
 
       <!-- Other dependencies -->
+      <dependency>
+        <groupId>com.indoqa.commons</groupId>
+        <artifactId>indoqa-commons-spring</artifactId>
+        <version>1.2.0</version>
+      </dependency>
       <dependency>
         <groupId>org.apache.avalon.framework</groupId>
         <artifactId>avalon-framework-api</artifactId>

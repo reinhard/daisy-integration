@@ -21,8 +21,16 @@
       <artifactId>cocoon-sax</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.apache.cocoon.sitemap</groupId>
+      <artifactId>cocoon-sitemap</artifactId>
+    </dependency>
+    <dependency>
        <groupId>org.apache.cocoon</groupId>
        <artifactId>cocoon-configuration-api</artifactId>
+    </dependency>
+    <dependency>
+       <groupId>com.indoqa.commons</groupId>
+       <artifactId>indoqa-commons-spring</artifactId>
     </dependency>
 
     <!-- Spring (+ AOP support)-->
