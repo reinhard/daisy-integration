@@ -109,12 +109,12 @@ public class CachingAspect {
     }
 
     private boolean isAsyncCachingEnabled() {
-        return Boolean.parseBoolean(this.settings.getProperty("cache.async"));
+        return Boolean.parseBoolean(this.settings.getProperty("com.indoqa.daisy.caching.async"));
     }
 
     private int readExpiryTime() {
         if (expires <= 0) {
-            String expiryTimeInMinutes = this.settings.getProperty("cache.expires");
+            String expiryTimeInMinutes = this.settings.getProperty("com.indoqa.daisy.caching.expires");
 
             if (StringUtils.isNotBlank(expiryTimeInMinutes) && NumberUtils.isDigits(expiryTimeInMinutes)) {
                 expires = Integer.parseInt(expiryTimeInMinutes);

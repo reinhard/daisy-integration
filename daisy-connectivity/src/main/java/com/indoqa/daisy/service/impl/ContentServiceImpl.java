@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.cocoon.configuration.Settings;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class ContentServiceImpl implements ContentService {
 
     @Autowired
     private BinaryDocumentDao binaryDocumentDao;
+
+    @Autowired
+    private Settings settings;
 
     private static String createRelativizer(String path) {
         if (StringUtils.isBlank(path)) {
@@ -147,6 +151,6 @@ public class ContentServiceImpl implements ContentService {
 
     private Navigation getNavigation(Locale locale) {
         // TODO replace document id with configureable value
-        return this.navigationDao.get(755, locale);
+        return this.navigationDao.get(Long.parseLong(this.settings.getProperty("com.indoqa.daisy.service.content.navdoc")), locale);
     }
 }

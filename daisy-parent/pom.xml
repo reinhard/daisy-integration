@@ -200,12 +200,20 @@
         <version>1.6.1</version>
       </dependency>
 
-      <!-- Other dependencies -->
+      <!-- Indoqa -->
       <dependency>
         <groupId>com.indoqa.commons</groupId>
         <artifactId>indoqa-commons-spring</artifactId>
         <version>1.2.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
+
+      <!-- Other dependencies -->
       <dependency>
         <groupId>org.apache.avalon.framework</groupId>
         <artifactId>avalon-framework-api</artifactId>
