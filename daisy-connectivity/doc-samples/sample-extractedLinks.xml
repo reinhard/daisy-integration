@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Outerthought bvba and Schaubroeck NV under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information  regarding 
+ copyright ownership. Outerthought bvba and Schaubroeck NV license 
+ this file to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License. 
+-->
+<links><p:linkInfo xmlns:p="http://outerx.org/daisy/1.0#publisher" xmlns:ns="http://outerx.org/daisy/1.0" src="daisy:389" documentName="forms_schema" documentType="Image"><p:linkPartInfo id="3" name="ImageData" fileName="forms_schema.png"/><p:linkPartInfo id="11" name="ImageThumbnail"/><p:linkPartInfo id="12" name="ImagePreview"/></p:linkInfo><p:linkInfo xmlns:p="http://outerx.org/daisy/1.0#publisher" xmlns:ns="http://outerx.org/daisy/1.0" href="daisy:478" documentName="A Simple Example" documentType="CocoonDocument"><p:linkPartInfo id="2" name="SimpleDocumentContent"/></p:linkInfo></links>

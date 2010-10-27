@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: indoqa-www-services.xml 1941 2009-12-01 01:44:23Z rpoetz $ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd"
+
+       default-autowire="byName">
+
+  <context:component-scan base-package="com.indoqa.daisy" />
+
+  <bean id="com.indoqa.daisy.adapter.credentials.repo" class="com.indoqa.daisy.adapter.DaisyCredentials"
+    scope="singleton"
+    p:login="${com.indoqa.daisy.adapter.credentials.repo.login}"
+    p:password="${com.indoqa.daisy.adapter.credentials.repo.password}"
+  />
+
+  <bean id="com.indoqa.daisy.adapter.credentials.remote" class="com.indoqa.daisy.adapter.DaisyCredentials"
+    scope="singleton"
+    p:login="${com.indoqa.daisy.adapter.credentials.remote.login}"
+    p:password="${com.indoqa.daisy.adapter.credentials.remote.password}"
+  />
+
+  <bean id="com.indoqa.daisy.adapter.DaisyRepositoryAccessFacade" class="com.indoqa.daisy.adapter.DaisyRepositoryAccessFacade"
+    scope="singleton"
+    lazy-init="true"
+    p:serverUrl="${com.indoqa.daisy.adapter.DaisyRepositoryAccessFacade.serverUrl}">
+    <property name="repoCredentials" ref="com.indoqa.daisy.adapter.credentials.repo"/>
+    <property name="remoteAccessCredentials" ref="com.indoqa.daisy.adapter.credentials.remote"/>
+  </bean>
+</beans>

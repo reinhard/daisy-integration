@@ -1,2 +1,0 @@
-This is an alpha version of the Daisy Maven Plugin. This means that any 
-interfaces or contracts can change without a preceding deprecation period.

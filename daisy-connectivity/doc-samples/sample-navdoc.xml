@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Licensed to the Outerthought bvba and Schaubroeck NV under one
+ or more contributor license agreements. See the NOTICE file
+ distributed with this work for additional information  regarding 
+ copyright ownership. Outerthought bvba and Schaubroeck NV license 
+ this file to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License. 
+-->
+<p:publisherResponse xmlns:p="http://outerx.org/daisy/1.0#publisher">
+  <navigationTree completeTree="true" xmlns="http://outerx.org/daisy/1.0#navigation">
+    <doc id="1148" documentId="1148" branchId="1" languageId="1" label="Cocoon 3.0 - Index" path="/1148"
+      hasChildren="false"/>
+    <group label="Getting started" path="/g1" id="g1">
+      <doc id="1153" documentId="1153" branchId="1" languageId="1" label="Using Eclipse to run Cocoon 3.0"
+        path="/g1/1153" hasChildren="false"/>
+    </group>
+    <group label="Architecture" path="/g2" id="g2">
+      <doc id="1151" documentId="1151" branchId="1" languageId="1" label="The OSGi fundament" path="/g2/1151"
+        hasChildren="false"/>
+    </group>
+    <group label="Blocks" path="/g3" id="g3">
+      <group label="Forms" path="/g3/forms" id="forms">
+        <group label="Basics" path="/g3/forms/basics" id="basics">
+          <doc id="489" documentId="489" branchId="1" languageId="1" label="Introduction" path="/g3/forms/basics/489"
+            hasChildren="false"/>
+          <doc id="478" documentId="478" branchId="1" languageId="1" label="Sample" path="/g3/forms/basics/478"
+            hasChildren="false"/>
+          <doc id="752" documentId="752" branchId="1" languageId="1" label="Improving the sample"
+            path="/g3/forms/basics/752" hasChildren="false"/>
+        </group>
+        <group label="Widgets" path="/g3/forms/widgets" id="widgets">
+          <doc id="477" documentId="477" branchId="1" languageId="1" label="Action widget" path="/g3/forms/widgets/477"/>
+          <doc id="486" documentId="486" branchId="1" languageId="1" label="Aggregatefield widget"
+            path="/g3/forms/widgets/486"/>
+          <doc id="482" documentId="482" branchId="1" languageId="1" label="booleanfield widget"
+            path="/g3/forms/widgets/482"/>
+          <doc id="1161" documentId="1161" branchId="1" languageId="1" label="Calculated fields"
+            path="/g3/forms/widgets/1161"/>
+          <doc id="742" documentId="742" branchId="1" languageId="1" label="Class/New (not really widgets)"
+            path="/g3/forms/widgets/742"/>
+          <doc id="481" documentId="481" branchId="1" languageId="1" label="Field widget" path="/g3/forms/widgets/481"/>
+          <doc id="754" documentId="754" branchId="1" languageId="1" label="Form" path="/g3/forms/widgets/754"/>
+          <doc id="740" documentId="740" branchId="1" languageId="1" label="Group/Struct widget"
+            path="/g3/forms/widgets/740"/>
+          <doc id="738" documentId="738" branchId="1" languageId="1" label="ImageMap widget"
+            path="/g3/forms/widgets/738"/>
+          <doc id="497" documentId="497" branchId="1" languageId="1" label="Messages widget"
+            path="/g3/forms/widgets/497"/>
+          <doc id="490" documentId="490" branchId="1" languageId="1" label="MultiValueField widget"
+            path="/g3/forms/widgets/490"/>
+          <doc id="492" documentId="492" branchId="1" languageId="1" label="Output widget" path="/g3/forms/widgets/492"/>
+          <doc id="494" documentId="494" branchId="1" languageId="1" label="RepeaterAction widget"
+            path="/g3/forms/widgets/494"/>
+          <doc id="496" documentId="496" branchId="1" languageId="1" label="Repeater widget"
+            path="/g3/forms/widgets/496"/>
+          <doc id="495" documentId="495" branchId="1" languageId="1" label="RowAction widget"
+            path="/g3/forms/widgets/495"/>
+          <doc id="493" documentId="493" branchId="1" languageId="1" label="Submit widget" path="/g3/forms/widgets/493"/>
+          <doc id="739" documentId="739" branchId="1" languageId="1" label="Tree widget" path="/g3/forms/widgets/739"/>
+          <doc id="741" documentId="741" branchId="1" languageId="1" label="Union widget" path="/g3/forms/widgets/741"/>
+          <doc id="483" documentId="483" branchId="1" languageId="1" label="Upload widget" path="/g3/forms/widgets/483"
+          />
+        </group>
+        <group label="Widget concepts" path="/g3/forms/concepts" id="concepts">
+          <doc id="484" documentId="484" branchId="1" languageId="1" label="Validation" path="/g3/forms/concepts/484"
+            hasChildren="false"/>
+          <doc id="479" documentId="479" branchId="1" languageId="1" label="Event Handling"
+            path="/g3/forms/concepts/479" hasChildren="false"/>
+          <doc id="487" documentId="487" branchId="1" languageId="1" label="Datatypes" path="/g3/forms/concepts/487"
+            hasChildren="false"/>
+          <doc id="753" documentId="753" branchId="1" languageId="1" label="Selection lists"
+            path="/g3/forms/concepts/753" hasChildren="false"/>
+          <doc id="733" documentId="733" branchId="1" languageId="1" label="Widget States" path="/g3/forms/concepts/733"
+            hasChildren="false"/>
+        </group>
+        <group label="Form publishing" path="/g3/forms/g1" id="g1">
+          <doc id="755" documentId="755" branchId="1" languageId="1" label="Templating" path="/g3/forms/g1/755"
+            hasChildren="true">
+            <doc id="480" documentId="480" branchId="1" languageId="1" label="Template Generator"
+              path="/g3/forms/g1/755/480" hasChildren="false"/>
+            <doc id="475" documentId="475" branchId="1" languageId="1" label="Template transformer"
+              path="/g3/forms/g1/755/475" hasChildren="false"/>
+          </doc>
+          <doc id="476" documentId="476" branchId="1" languageId="1" label="Generator" path="/g3/forms/g1/476"
+            hasChildren="false"/>
+          <doc id="485" documentId="485" branchId="1" languageId="1" label="XSLT" path="/g3/forms/g1/485"
+            hasChildren="false"/>
+          <doc id="1147" documentId="1147" branchId="1" languageId="1" label="CSS" path="/g3/forms/g1/1147"
+            hasChildren="false"/>
+        </group>
+        <group label="Binding" path="/g3/forms/binding" id="binding">
+          <doc id="488" documentId="488" branchId="1" languageId="1" label="Binding Framework"
+            path="/g3/forms/binding/488" hasChildren="false"/>
+          <doc id="743" documentId="743" branchId="1" languageId="1" label="Simple XML Binding"
+            path="/g3/forms/binding/743" hasChildren="false"/>
+        </group>
+        <group label="API" path="/g3/forms/api" id="api">
+          <doc id="498" documentId="498" branchId="1" languageId="1" label="Java API" path="/g3/forms/api/498"
+            hasChildren="false"/>
+          <doc id="491" documentId="491" branchId="1" languageId="1" label="Javascript API" path="/g3/forms/api/491"
+            hasChildren="false"/>
+        </group>
+        <doc id="685" documentId="685" branchId="1" languageId="1" label="Form libraries" path="/g3/forms/685"
+          hasChildren="false"/>
+        <doc id="750" documentId="750" branchId="1" languageId="1" label="Ajax" path="/g3/forms/750" hasChildren="false"
+        />
+      </group>
+    </group>
+  </navigationTree>
+</p:publisherResponse>

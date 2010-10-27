@@ -16,10 +16,11 @@
   <name>Indoqa Daisy: Root</name>
   
   <modules>
+    <module>daisy-caching</module>
     <module>daisy-cocoon</module>
-    <module>daisy-dao</module>
-    <module>daisy-java-adapter</module>
+    <module>daisy-connectivity</module>
     <module>daisy-parent</module>
+    <module>daisy-wicket</module>
   </modules>
 
   <scm>

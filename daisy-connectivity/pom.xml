@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @version $Id: pom.xml 2126 2010-02-02 23:36:25Z rpoetz $ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>jar</packaging>
+
+  <parent>
+    <groupId>com.indoqa.daisy</groupId>
+    <artifactId>daisy-parent</artifactId>
+    <version>1.5.1.1-SNAPSHOT</version>
+    <relativePath>../daisy-parent</relativePath>
+  </parent>
+  <artifactId>daisy-connectivity</artifactId>
+  <name>Indoqa Daisy: Connectivity</name>
+  <description>Accessing a Daisy repository with DAO &amp; services or Cocoon pipeline components.</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.cocoon.sax</groupId>
+      <artifactId>cocoon-sax</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cocoon.sitemap</groupId>
+      <artifactId>cocoon-sitemap</artifactId>
+    </dependency>
+    <dependency>
+       <groupId>org.apache.cocoon</groupId>
+       <artifactId>cocoon-configuration-api</artifactId>
+    </dependency>
+    <dependency>
+       <groupId>com.indoqa.commons</groupId>
+       <artifactId>indoqa-commons-spring</artifactId>
+    </dependency>
+
+   <!-- daisy specific libraries -->
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-repository-spi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-repository-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-repository-client-impl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-util</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-repository-common-impl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-repository-xmlschema-bindings</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-jmsclient-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-publisher-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-publisher-xmlschema-bindings</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-textextraction-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-linkextractors</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>daisy</groupId>
+      <artifactId>daisy-publisher-client-impl</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.avalon.framework</groupId>
+      <artifactId>avalon-framework-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>xmlbeans</groupId>
+      <artifactId>xbean</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>concurrent</groupId>
+      <artifactId>concurrent</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>avalon-framework</groupId>
+          <artifactId>avalon-framework</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>stax</groupId>
+      <artifactId>stax-api</artifactId>
+    </dependency>
+
+    <!-- Spring (+ AOP support)-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+    </dependency>
+
+    <!-- other dependencies -->
+    <dependency>
+      <groupId>org.apache.avalon.framework</groupId>
+      <artifactId>avalon-framework-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+    </dependency>
+
+    <!-- Test dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>easymock</groupId>
+      <artifactId>easymockclassextension</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

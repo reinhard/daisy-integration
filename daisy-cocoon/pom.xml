@@ -39,7 +39,7 @@
     <!-- Internal dependencies -->
     <dependency>
       <groupId>com.indoqa.daisy</groupId>
-      <artifactId>daisy-dao</artifactId>
+      <artifactId>daisy-connectivity</artifactId>
     </dependency>
 
     <!-- Test dependencies -->
