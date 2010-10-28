@@ -18,11 +18,11 @@ import com.indoqa.daisy.pipeline.DaisyDocumentNotFoundException;
 public class BinaryDocumentDaoImpl extends AbstractDaisyDao implements BinaryDocumentDao {
 
     @Override
-    public BinaryDocument get(Long id, Locale locale, String part, String fileName) {
+    public BinaryDocument get(String id, Locale locale, String part, String fileName) {
         return this.getBinaryDocument(id, locale, part, fileName);
     }
 
-    protected BinaryDocument getBinaryDocument(long id, Locale locale, String part, String fileName) {
+    protected BinaryDocument getBinaryDocument(String id, Locale locale, String part, String fileName) {
         DaisyBinaryPartReader binaryPartReader = new DaisyBinaryPartReader();
         binaryPartReader.setDocumentId(id);
         binaryPartReader.setIsNavDoc(false);
@@ -44,7 +44,7 @@ public class BinaryDocumentDaoImpl extends AbstractDaisyDao implements BinaryDoc
         }
 
         BinaryDocument doc = new BinaryDocument();
-        doc.setId(Long.toString(id));
+        doc.setId(id);
         doc.setLocale(locale);
         doc.setContent(outputStream.toByteArray());
         doc.setMimeType(daisyPipeline.getContentType());

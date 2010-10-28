@@ -31,11 +31,11 @@ import org.xml.sax.ContentHandler;
 
 public class DaisyRepositoryAccessFacade extends AbstractDaisyRepositoryAccessFacade {
 
-    public Document getJDocument(final long id) {
-        return getJDocument(id, "1", "1");
+    public Document getJDocument(final String id) {
+        return this.getJDocument(id, "1", "1");
     }
 
-    public Document getJDocument(final long id, final String branchId, final String languageId) {
+    public Document getJDocument(final String id, final String branchId, final String languageId) {
         Document jDocument = null;
         for (int i = 0; i <= this.getNumOfRetries(); i++) {
             try {
@@ -50,21 +50,7 @@ public class DaisyRepositoryAccessFacade extends AbstractDaisyRepositoryAccessFa
         return jDocument;
     }
 
-    public void getPublisherDocument(PublisherRequestDocument prDoc, ContentHandler handler) {
-        for (int i = 0; i <= this.getNumOfRetries(); i++) {
-            Publisher publisher = (Publisher) this.getRepository().getExtension("Publisher");
-            try {
-                publisher.processRequest(prDoc, handler);
-                break;
-            } catch (Exception e) {
-                if (i == this.getNumOfRetries() || !(e.getCause() instanceof HttpRecoverableException)) {
-                    throw new DaisyClientException("A problem occurred while using the publisher.", e);
-                }
-            }
-        }
-    }
-
-    public BlobInfo getPartAsBlob(long documentId, long branchId, long languageId, String version, String partType) {
+    public BlobInfo getPartAsBlob(String documentId, long branchId, long languageId, String version, String partType) {
         BlobInfo blobInfo = null;
         for (int i = 0; i <= this.getNumOfRetries(); i++) {
             Publisher publisher = (Publisher) this.getRepository().getExtension("Publisher");
@@ -78,6 +64,20 @@ public class DaisyRepositoryAccessFacade extends AbstractDaisyRepositoryAccessFa
             }
         }
         return blobInfo;
+    }
+
+    public void getPublisherDocument(PublisherRequestDocument prDoc, ContentHandler handler) {
+        for (int i = 0; i <= this.getNumOfRetries(); i++) {
+            Publisher publisher = (Publisher) this.getRepository().getExtension("Publisher");
+            try {
+                publisher.processRequest(prDoc, handler);
+                break;
+            } catch (Exception e) {
+                if (i == this.getNumOfRetries() || !(e.getCause() instanceof HttpRecoverableException)) {
+                    throw new DaisyClientException("A problem occurred while using the publisher.", e);
+                }
+            }
+        }
     }
 
     public QueryManager getQueryManager() {

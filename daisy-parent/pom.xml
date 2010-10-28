@@ -11,49 +11,11 @@
   </parent>
   <groupId>com.indoqa.daisy</groupId>
   <artifactId>daisy-parent</artifactId>
-  <version>1.5.1.1-SNAPSHOT</version>
+  <version>2.4.0.0-SNAPSHOT</version>
 
   <name>Indoqa Daisy: Parent</name>
   <description>Indoqa Daisy Parent POM module contains all basic configurations for the Maven 2 based build system.</description>
   <inceptionYear>2010</inceptionYear>
-
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-            </manifest>
-            <manifestEntries>
-              <Implementation-Build>${project.version}-${buildNumber}</Implementation-Build>
-            </manifestEntries>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>buildnumber-maven-plugin</artifactId>
-        <configuration>
-          <doCheck>false</doCheck>
-          <doUpdate>false</doUpdate>
-          <format>{0,date,yyyyMMdd-HHmm}</format>
-          <items>
-            <item>timestamp</item>
-          </items>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>validate</phase>
-            <goals>
-              <goal>create</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 
   <dependencyManagement>
     <dependencies>
@@ -68,62 +30,57 @@
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-repository-spi</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-repository-api</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-repository-client-impl</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-util</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-repository-common-impl</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-repository-xmlschema-bindings</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-jmsclient-api</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-publisher-api</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-publisher-xmlschema-bindings</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-textextraction-api</artifactId>
-        <version>1.5.1</version>
-      </dependency>
-      <dependency>
-        <groupId>daisy</groupId>
-        <artifactId>daisy-linkextractors</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
       <dependency>
         <groupId>daisy</groupId>
         <artifactId>daisy-publisher-client-impl</artifactId>
-        <version>1.5.1</version>
+        <version>2.4</version>
       </dependency>
 
       <!-- Cocoon 3 -->
@@ -210,15 +167,22 @@
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
 
       <!-- Other dependencies -->
-      <dependency>
-        <groupId>org.apache.avalon.framework</groupId>
-        <artifactId>avalon-framework-api</artifactId>
-        <version>4.3</version>
-      </dependency>
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
@@ -266,11 +230,6 @@
         <version>4.3.1</version>
       </dependency>
       <dependency>
-        <groupId>commons-httpclient</groupId>
-        <artifactId>commons-httpclient</artifactId>
-        <version>3.1</version>
-      </dependency>
-      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-log4j12</artifactId>
         <version>1.5.2</version>
@@ -280,6 +239,16 @@
         <artifactId>log4j</artifactId>
         <version>1.2.14</version>
       </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.9.0</version>
+    </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xmlParserAPIs</artifactId>
+      <version>2.2.1</version>
+    </dependency>
 
       <dependency>
         <groupId>org.apache.wicket</groupId>
@@ -320,7 +289,7 @@
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.7</version>
+        <version>4.8.1</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -336,12 +305,41 @@
     </dependencies>
   </dependencyManagement>
 
-  <repositories>
-    <repository>
-      <id>cocoon-dev</id>
-      <name>cocoon-dev</name>
-      <url>http://cocoondev.org/repository/</url>
-      <layout>legacy</layout>
-    </repository>
-  </repositories>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+            <manifestEntries>
+              <Implementation-Build>${project.version}-${buildNumber}</Implementation-Build>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <configuration>
+          <doCheck>false</doCheck>
+          <doUpdate>false</doUpdate>
+          <format>{0,date,yyyyMMdd-HHmm}</format>
+          <items>
+            <item>timestamp</item>
+          </items>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

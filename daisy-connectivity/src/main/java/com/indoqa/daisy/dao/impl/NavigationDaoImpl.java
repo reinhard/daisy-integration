@@ -26,11 +26,16 @@ import com.indoqa.daisy.pipeline.DaisyGenerator;
 @Repository
 public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao {
 
-    public Navigation get(long id, Locale locale) {
+    public Navigation get(String id, Locale locale) {
         return new Navigation().setRoot(this.parseDocument(this.getNavigationDocument(id, locale)));
     }
 
-    protected String getNavigationDocument(long id, Locale locale) {
+    @Override
+    public String getNavDocId() {
+        return super.getNavDocId();
+    }
+
+    protected String getNavigationDocument(String id, Locale locale) {
         // prepare components
         DaisyGenerator daisyGenerator = new DaisyGenerator();
         daisyGenerator.setDocumentId(id);

@@ -17,11 +17,11 @@ public abstract class AbstractDaisyProducer extends AbstractSAXGenerator {
 
     protected Settings cocoonSettings;
 
-    protected long documentId;
+    protected String documentId;
 
     protected String part;
 
-    private long annotationNavDocId;
+    private String annotationNavDocId;
 
     private DaisyDocument daisyDocument;
 
@@ -29,7 +29,7 @@ public abstract class AbstractDaisyProducer extends AbstractSAXGenerator {
 
     private boolean isNavDoc;
 
-    public void setAnnotationNavDocId(long annotationNavDocId) {
+    public void setAnnotationNavDocId(String annotationNavDocId) {
         this.annotationNavDocId = annotationNavDocId;
     }
 
@@ -41,7 +41,7 @@ public abstract class AbstractDaisyProducer extends AbstractSAXGenerator {
     public void setConfiguration(Map<String, ? extends Object> configuration) {
         super.setConfiguration(configuration);
 
-        this.setDocumentId(Long.parseLong((String) configuration.get("documentId")));
+        this.setDocumentId((String) configuration.get("documentId"));
         this.setIsNavDoc(Boolean.parseBoolean((String) configuration.get("isNavDoc")));
         this.part = (String) configuration.get("part");
     }
@@ -50,7 +50,7 @@ public abstract class AbstractDaisyProducer extends AbstractSAXGenerator {
         this.facade = facade;
     }
 
-    public void setDocumentId(long documentId) {
+    public void setDocumentId(String documentId) {
         this.documentId = documentId;
     }
 
@@ -82,8 +82,8 @@ public abstract class AbstractDaisyProducer extends AbstractSAXGenerator {
                 try {
                     this.daisyDocument.getDocument().getPart(this.part);
                 } catch (Exception e) {
-                    throw new DaisyDocumentNotFoundException("Can't find part with name " + this.part
-                            + " of document with ID " + this.documentId);
+                    throw new DaisyDocumentNotFoundException("Can't find part with name " + this.part + " of document with ID "
+                            + this.documentId);
                 }
             }
         }

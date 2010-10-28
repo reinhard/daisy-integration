@@ -10,6 +10,7 @@ import org.apache.cocoon.pipeline.caching.CacheKey;
 import org.apache.cocoon.pipeline.component.CachingPipelineComponent;
 import org.apache.cocoon.pipeline.component.Finisher;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.outerj.daisy.repository.Document;
 import org.outerj.daisy.repository.Part;
 import org.outerj.daisy.repository.RepositoryException;
@@ -22,8 +23,7 @@ public class DaisyBinaryPartReader extends AbstractDaisyProducer implements Fini
     private long lastModificationTime;
 
     public CacheKey constructCacheKey() {
-        return new DaisyDocumentPartCacheKey(this.documentId, this.part, this.getDaisyDocument().getDocument()
-                .getLastModified());
+        return new DaisyDocumentPartCacheKey(this.documentId, this.part, this.getDaisyDocument().getDocument().getLastModified());
     }
 
     public void execute() {
@@ -32,13 +32,11 @@ public class DaisyBinaryPartReader extends AbstractDaisyProducer implements Fini
             document = this.getDaisyDocument().getDocument();
             this.attachementDataPart = document.getPart(this.part);
         } catch (Exception e) {
-            throw new DaisyDocumentNotFoundException("Can't find data attachement of document with ID "
-                    + this.documentId);
+            throw new DaisyDocumentNotFoundException("Can't find data attachement of document with ID " + this.documentId);
         }
 
         if (this.fileName == null || !this.fileName.equals(this.attachementDataPart.getFileName())) {
-            throw new DaisyDocumentNotFoundException("Can't find data attachement of document with ID "
-                    + this.documentId);
+            throw new DaisyDocumentNotFoundException("Can't find data attachement of document with ID " + this.documentId);
         }
 
         try {
@@ -78,12 +76,12 @@ public class DaisyBinaryPartReader extends AbstractDaisyProducer implements Fini
 
         private static final long serialVersionUID = 1L;
 
-        private final long id;
+        private final String id;
         private String jmxGroupName;
         private final String partName;
         private final Date timestamp;
 
-        public DaisyDocumentPartCacheKey(long id, String partName, Date date) {
+        public DaisyDocumentPartCacheKey(String id, String partName, Date date) {
             this.id = id;
             this.partName = partName;
             this.timestamp = date;
@@ -109,6 +107,11 @@ public class DaisyBinaryPartReader extends AbstractDaisyProducer implements Fini
 
         public Date getTimestamp() {
             return this.timestamp;
+        }
+
+        @Override
+        public int hashCode() {
+            return new HashCodeBuilder().append(this.id).append(this.partName).toHashCode();
         }
 
         public boolean hasJmxGroupName() {

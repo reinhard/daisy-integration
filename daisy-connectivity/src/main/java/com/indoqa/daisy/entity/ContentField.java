@@ -9,7 +9,7 @@ public class ContentField implements Serializable {
     private static final long serialVersionUID = 1l;
 
     private String name;
-    private List<String> value = new ArrayList<String>();
+    private List<String> values = new ArrayList<String>();
     private String valueType;
     private List<String> documentIds = new ArrayList<String>();
     private List<String> languageIds = new ArrayList<String>();
@@ -17,6 +17,7 @@ public class ContentField implements Serializable {
     private List<ContentDocument> documents = new ArrayList<ContentDocument>();
 
     public ContentField() {
+        this(null, null);
     }
 
     public ContentField(String name, String valueType) {
@@ -41,7 +42,7 @@ public class ContentField implements Serializable {
     }
 
     public void addValue(String value) {
-        this.value.add(value);
+        this.values.add(value);
     }
 
     public List<String> getBrancheIds() {
@@ -65,17 +66,17 @@ public class ContentField implements Serializable {
     }
 
     public String getValue() {
-        String[] values = this.getValues();
+        String[] result = this.getValues();
 
-        if (values != null && values.length >= 1) {
-            return values[0];
+        if (result != null && result.length >= 1) {
+            return result[0];
         }
 
         return null;
     }
 
     public String[] getValues() {
-        return this.value.toArray(new String[this.value.size()]);
+        return this.values.toArray(new String[this.values.size()]);
     }
 
     public String getValueType() {
@@ -88,6 +89,6 @@ public class ContentField implements Serializable {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "[name=" + this.name + ", value=" + this.value + "]";
+        return this.getClass().getSimpleName() + "[name=" + this.name + ", value=" + this.values + "]";
     }
 }

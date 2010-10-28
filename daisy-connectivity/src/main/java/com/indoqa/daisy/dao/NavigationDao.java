@@ -6,5 +6,7 @@ import com.indoqa.daisy.entity.Navigation;
 
 public interface NavigationDao {
 
-    Navigation get(long id, Locale locale);
+    Navigation get(String id, Locale locale);
+
+    String getNavDocId();
 }

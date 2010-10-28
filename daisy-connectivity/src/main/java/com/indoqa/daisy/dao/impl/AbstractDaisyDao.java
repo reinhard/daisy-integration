@@ -17,6 +17,10 @@ public abstract class AbstractDaisyDao {
         return this.daisyRepositoryAccessFacade;
     }
 
+    protected String getNavDocId() {
+        return this.settings.getProperty("com.indoqa.daisy.service.content.navdoc");
+    }
+
     protected Settings getSettings() {
         return this.settings;
     }

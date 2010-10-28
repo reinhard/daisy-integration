@@ -46,8 +46,8 @@ public class ContentDocument extends DaisyDomainObject {
         return this.created;
     }
 
-    public ContentField getField(String name) {
-        ContentField contentField = this.fields.get(name);
+    public ContentField getField(String fieldName) {
+        ContentField contentField = this.fields.get(fieldName);
 
         if (contentField == null) {
             return EMPTY_FIELD;

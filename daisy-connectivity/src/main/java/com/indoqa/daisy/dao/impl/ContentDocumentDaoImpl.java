@@ -20,6 +20,7 @@ import org.apache.cocoon.xml.sax.SAXBuffer;
 import org.apache.commons.io.output.NullOutputStream;
 import org.outerj.daisy.repository.RepositoryException;
 import org.outerj.daisy.repository.VariantKey;
+import org.outerj.daisy.repository.query.QueryManager;
 import org.springframework.stereotype.Repository;
 
 import com.indoqa.daisy.dao.ContentDocumentDao;
@@ -36,14 +37,16 @@ import com.indoqa.daisy.pipeline.MetaInfoExtractorTransformer;
 public class ContentDocumentDaoImpl extends AbstractDaisyDao implements ContentDocumentDao {
 
     @Override
-    public List<Long> find(String query, Locale locale) {
+    public List<String> find(String query, Locale locale) {
         try {
-            List<Long> result = new ArrayList<Long>();
+            List<String> result = new ArrayList<String>();
 
-            VariantKey[] docKeys = this.getDaisyRepositoryAccessFacade().getQueryManager().performQueryReturnKeys(query, locale);
+            QueryManager queryManager = this.getDaisyRepositoryAccessFacade().getQueryManager();
+            VariantKey[] docKeys = queryManager.performQueryReturnKeys(query, locale);
             for (VariantKey key : docKeys) {
                 result.add(key.getDocumentId());
             }
+
             return result;
         } catch (RepositoryException e) {
             throw new DaisyException(e);
@@ -51,17 +54,17 @@ public class ContentDocumentDaoImpl extends AbstractDaisyDao implements ContentD
     }
 
     @Override
-    public ContentDocument get(Long id, Locale locale, String pathRelativizer, Map<String, String> linkRewriteTranslationTable) {
+    public ContentDocument get(String id, Locale locale, String pathRelativizer, Map<String, String> linkRewriteTranslationTable) {
         return this.getContentDocument(id, locale, pathRelativizer, linkRewriteTranslationTable);
     }
 
-    protected ContentDocument getContentDocument(long id, Locale locale, String pathRelativizer,
+    protected ContentDocument getContentDocument(String id, Locale locale, String pathRelativizer,
             Map<String, String> linkRewriteTranslationTable) {
 
         // prepare components
         DaisyGenerator daisyGenerator = new DaisyGenerator();
         daisyGenerator.setDocumentId(id);
-        daisyGenerator.setAnnotationNavDocId(755);
+        daisyGenerator.setAnnotationNavDocId(this.getNavDocId());
         daisyGenerator.setIsNavDoc(false);
         daisyGenerator.setDaisyAccessFacade(this.getDaisyRepositoryAccessFacade());
         daisyGenerator.setCocoonSettings(this.getSettings());
@@ -102,7 +105,7 @@ public class ContentDocumentDaoImpl extends AbstractDaisyDao implements ContentD
 
         // set name, type summary, etc.
         ContentDocument contentDocument = new ContentDocument();
-        contentDocument.setId(Long.toString(id));
+        contentDocument.setId(id);
         contentDocument.setName(metaInfoExtractorTransformer.getName());
         contentDocument.setType(metaInfoExtractorTransformer.getType());
         contentDocument.setSummary(metaInfoExtractorTransformer.getSummary());
@@ -123,9 +126,9 @@ public class ContentDocumentDaoImpl extends AbstractDaisyDao implements ContentD
         Map<String, ContentField> fields = metaInfoExtractorTransformer.getFields();
         for (ContentField field : fields.values()) {
             for (int i = 0; i < field.getDocumentIds().size(); i++) {
-                long documentId = Long.parseLong(field.getDocumentIds().get(i));
+                String documentId = field.getDocumentIds().get(i);
                 ContentDocument fieldDoc;
-                if (documentId == id) {
+                if (documentId.equals(id)) {
                     fieldDoc = contentDocument;
                 } else {
                     fieldDoc = this.getContentDocument(documentId, locale, pathRelativizer, linkRewriteTranslationTable);
@@ -182,6 +185,7 @@ public class ContentDocumentDaoImpl extends AbstractDaisyDao implements ContentD
             Pipeline<SAXPipelineComponent> pipeline = new NonCachingPipeline<SAXPipelineComponent>();
             pipeline.addComponent(daisyGenerator);
             pipeline.addComponent(XMLSerializer.createXMLSerializer());
+
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             pipeline.setup(baos);
             try {

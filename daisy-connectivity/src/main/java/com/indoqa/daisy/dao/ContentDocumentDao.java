@@ -8,7 +8,7 @@ import com.indoqa.daisy.entity.ContentDocument;
 
 public interface ContentDocumentDao {
 
-    List<Long> find(String query, Locale locale);
+    List<String> find(String query, Locale locale);
 
-    ContentDocument get(Long id, Locale locale, String pathRelativizer, Map<String, String> linkRewriteTranslationTable);
+    ContentDocument get(String id, Locale locale, String pathRelativizer, Map<String, String> linkRewriteTranslationTable);
 }

@@ -1,7 +1,7 @@
 /*
  * Licensed to the Outerthought bvba and Schaubroeck NV under one
  * or more contributor license agreements. See the NOTICE file
- * distributed with this work for additional information regarding 
+ * distributed with this work for additional information regarding
  * copyright ownership.  Outerthought bvba and Schaubroeck NV license
  * this file to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
@@ -14,17 +14,16 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
- * under the License. 
+ * under the License.
  */
 package com.indoqa.daisy.adapter.pr;
 
 public class PRDocumentConfiguration {
 
-    public long annotatingNavDocId;
+    public String annotatingNavDocId;
     public String annotatingNavDocBranchId = "1";
     public String annotatingNavDocLanguageId = "1";
-    
+
     public boolean isNavigationDocument;
     public boolean useLast = false;
-    
 }

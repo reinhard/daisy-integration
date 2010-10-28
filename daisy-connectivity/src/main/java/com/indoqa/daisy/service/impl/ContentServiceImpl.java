@@ -55,10 +55,10 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public List<ContentDocument> find(String query, Locale locale) {
-        List<Long> docIds = this.contentDocumentDao.find(query, locale);
+        List<String> docIds = this.contentDocumentDao.find(query, locale);
 
         List<ContentDocument> results = new ArrayList<ContentDocument>();
-        for (Long documentId : docIds) {
+        for (String documentId : docIds) {
             results.add(this.getContentDocument(documentId, locale, "", null));
         }
 
@@ -67,14 +67,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public BinaryDocument getBinaryDocument(String id, String partType, String fileName, Locale locale) {
-        long documentId;
-        try {
-            documentId = Long.parseLong(id);
-        } catch (NumberFormatException nfe) {
-            return null;
-        }
-
-        return this.binaryDocumentDao.get(documentId, locale, partType, fileName);
+        return this.binaryDocumentDao.get(id, locale, partType, fileName);
     }
 
     @Override
@@ -87,15 +80,8 @@ public class ContentServiceImpl implements ContentService {
             return null;
         }
 
-        long documentId;
-        try {
-            documentId = Long.parseLong(id);
-        } catch (NumberFormatException nfe) {
-            return null;
-        }
-
         Map<String, String> linkTranslationMap = navigation.getLinkTranslationMap();
-        return this.getContentDocument(documentId, locale, relativizer, linkTranslationMap);
+        return this.getContentDocument(id, locale, relativizer, linkTranslationMap);
     }
 
     @Override
@@ -107,9 +93,8 @@ public class ContentServiceImpl implements ContentService {
             return null;
         }
 
-        long documentId = Long.parseLong(navigationElement.getDocumentId());
         Map<String, String> linkTranslationMap = navigation.getLinkTranslationMap();
-        return this.getContentDocument(documentId, locale, createRelativizer(path), linkTranslationMap);
+        return this.getContentDocument(navigationElement.getDocumentId(), locale, createRelativizer(path), linkTranslationMap);
     }
 
     @Override
@@ -135,13 +120,13 @@ public class ContentServiceImpl implements ContentService {
         return elements.toArray(new NavigationElement[elements.size()]);
     }
 
-    private ContentDocument getContentDocument(long documentId, Locale locale, String pathRelativizer,
+    private ContentDocument getContentDocument(String documentId, Locale locale, String pathRelativizer,
             Map<String, String> linkRewriteTranslationTable) {
         ContentDocument contentDocument = this.contentDocumentDao
                 .get(documentId, locale, pathRelativizer, linkRewriteTranslationTable);
 
         // add the navigation path to the content document
-        NavigationElement navEl = this.getNavigation(locale).getNavigationElementByDocumentId(Long.toString(documentId));
+        NavigationElement navEl = this.getNavigation(locale).getNavigationElementByDocumentId(documentId);
         if (navEl != null) {
             contentDocument.setPath(navEl.getPath());
         }
@@ -150,7 +135,6 @@ public class ContentServiceImpl implements ContentService {
     }
 
     private Navigation getNavigation(Locale locale) {
-        // TODO replace document id with configureable value
-        return this.navigationDao.get(Long.parseLong(this.settings.getProperty("com.indoqa.daisy.service.content.navdoc")), locale);
+        return this.navigationDao.get(this.navigationDao.getNavDocId(), locale);
     }
 }
