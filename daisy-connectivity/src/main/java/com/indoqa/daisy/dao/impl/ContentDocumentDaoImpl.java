@@ -154,7 +154,7 @@ public class ContentDocumentDaoImpl extends AbstractDaisyDao implements ContentD
         try {
             pipeline.execute();
         } catch (Exception e) {
-            throw new DaisyException("Can't execute a Cocoon pipeline that accesses a Daisy document.");
+            throw new DaisyException("Can't execute a Cocoon pipeline that accesses a Daisy document.", e);
         }
 
         return this.cleanupXML(baos);
@@ -172,7 +172,7 @@ public class ContentDocumentDaoImpl extends AbstractDaisyDao implements ContentD
             pipeline.execute();
             return new String(newBaos.toByteArray(), "utf-8");
         } catch (Exception e) {
-            throw new DaisyException("Can't execute a Cocoon pipeline that accesses a Daisy document.");
+            throw new DaisyException("Can't execute a Cocoon pipeline that accesses a Daisy document.", e);
         }
     }
 
