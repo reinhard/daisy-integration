@@ -2,7 +2,6 @@ package com.indoqa.daisy.pipeline;
 
 import java.util.Map;
 
-import org.apache.cocoon.pipeline.ProcessingException;
 import org.apache.cocoon.sax.AbstractSAXTransformer;
 import org.apache.cocoon.xml.sax.SAXBuffer;
 import org.apache.commons.lang.StringUtils;
@@ -36,14 +35,6 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
         this.linkRewriteTranslationTable = linkRewriteTranslationTable;
     }
 
-    private static String replaceIfNotNull(Object parameter, String defaultValue) {
-        if (parameter == null) {
-            return defaultValue;
-        }
-
-        return (String) parameter;
-    }
-
     @Override
     public final void endElement(String uri, String localName, String name) throws SAXException {
         if (PUBLISHER_NS.equals(uri)) {
@@ -73,7 +64,7 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
     @Override
     public void startElement(String uri, String localName, String name, Attributes atts) throws SAXException {
         // collect link information
-        if (PUBLISHER_NS.equals(uri) && LINK_INFO_EL.equals(localName)) {
+        if (PUBLISHER_NS.equals(uri) && LINK_INFO_EL.equals(localName) && this.currentLinkInfo != null) {
             this.currentLinkInfo.setSource(atts.getValue("src"));
             this.currentLinkInfo.setHref(atts.getValue("href"));
             this.currentLinkInfo.setDocumentType(atts.getValue("documentType"));
@@ -92,10 +83,10 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
         }
 
         // collection link part information
-        if (PUBLISHER_NS.equals(uri) && LINK_PART_INFO_EL.equals(localName)) {
-            if (this.currentLinkInfo == null) {
-                throw new ProcessingException(new NullPointerException("The LinkInfo object mustn't be null here."));
-            }
+        if (this.currentLinkInfo != null && PUBLISHER_NS.equals(uri) && LINK_PART_INFO_EL.equals(localName)) {
+            // if (this.currentLinkInfo == null) {
+            // throw new ProcessingException(new NullPointerException("The LinkInfo object mustn't be null here."));
+            // }
 
             String fileName = atts.getValue("fileName");
             if (fileName != null) {
@@ -235,6 +226,14 @@ public class DaisyLinkRewriteTransformer extends AbstractSAXTransformer {
         rewrittenAtts.addAttribute("", "class", "class", "PCDATA", this.rewriteClassAttribute(linkInfo, classValue));
 
         return rewrittenAtts;
+    }
+
+    private static String replaceIfNotNull(Object parameter, String defaultValue) {
+        if (parameter == null) {
+            return defaultValue;
+        }
+
+        return (String) parameter;
     }
 
     protected static class LinkInfo {

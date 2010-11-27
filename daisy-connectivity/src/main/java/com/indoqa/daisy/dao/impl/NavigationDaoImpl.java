@@ -105,12 +105,19 @@ public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao
                 String id = this.getId(a);
                 String path = id;
 
-                if (id != null && id.startsWith("qn")) {
-                    id = id.substring(2);
+                // rewrite nodes that use the document id
+                if (id != null && id.endsWith("-" + NavigationDaoImpl.this.getDaisyNamespace())) {
+                    path = a.getValue("label");
                 }
 
-                if (NumberUtils.isDigits(id)) {
+                // rewrite nodes that have an automatically generated id
+                else if (id != null && id.startsWith("g") && NumberUtils.isDigits(id.substring(1))) {
                     path = a.getValue("label");
+                }
+
+                // rewrite nodes that have an automatically generated id (Daisy <= 1.5.1)
+                else if (id != null && id.startsWith("qn")) {
+                    id = id.substring(2);
                 }
 
                 String calcPath = parentPath + "/" + URLStringUtils.clean(path);

@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.cocoon.configuration.Settings;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,27 +30,6 @@ public class ContentServiceImpl implements ContentService {
     @Autowired
     private BinaryDocumentDao binaryDocumentDao;
 
-    @Autowired
-    private Settings settings;
-
-    private static String createRelativizer(String path) {
-        if (StringUtils.isBlank(path)) {
-            return "";
-        }
-
-        String result = path;
-        if (!result.startsWith("/")) {
-            result = "/" + result;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < StringUtils.countMatches(path, "/"); i++) {
-            sb.append("../");
-        }
-
-        return sb.toString();
-    }
-
     @Override
     public List<ContentDocument> find(String query, Locale locale) {
         List<String> docIds = this.contentDocumentDao.find(query, locale);
@@ -76,7 +53,7 @@ public class ContentServiceImpl implements ContentService {
 
         // check if the document exists
         NavigationElement navigationElement = navigation.getNavigationElementByDocumentId(id);
-        if (navigationElement == null || !NumberUtils.isDigits(navigationElement.getDocumentId())) {
+        if (navigationElement == null || StringUtils.isEmpty(navigationElement.getDocumentId())) {
             return null;
         }
 
@@ -89,7 +66,7 @@ public class ContentServiceImpl implements ContentService {
         Navigation navigation = this.getNavigation(locale);
 
         NavigationElement navigationElement = navigation.getNavigationElementByPath(path);
-        if (navigationElement == null || !NumberUtils.isDigits(navigationElement.getDocumentId())) {
+        if (navigationElement == null || StringUtils.isEmpty(navigationElement.getDocumentId())) {
             return null;
         }
 
@@ -136,5 +113,23 @@ public class ContentServiceImpl implements ContentService {
 
     private Navigation getNavigation(Locale locale) {
         return this.navigationDao.get(this.navigationDao.getNavDocId(), locale);
+    }
+
+    private static String createRelativizer(String path) {
+        if (StringUtils.isBlank(path)) {
+            return "";
+        }
+
+        String result = path;
+        if (!result.startsWith("/")) {
+            result = "/" + result;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < StringUtils.countMatches(path, "/"); i++) {
+            sb.append("../");
+        }
+
+        return sb.toString();
     }
 }
