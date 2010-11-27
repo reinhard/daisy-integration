@@ -13,6 +13,10 @@ public abstract class AbstractDaisyDao {
     @Autowired
     private Settings settings;
 
+    protected String getDaisyNamespace() {
+        return this.settings.getProperty("com.indoqa.daisy.namespace");
+    }
+
     protected DaisyRepositoryAccessFacade getDaisyRepositoryAccessFacade() {
         return this.daisyRepositoryAccessFacade;
     }
