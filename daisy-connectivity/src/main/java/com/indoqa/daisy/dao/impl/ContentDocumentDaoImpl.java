@@ -180,22 +180,21 @@ public class ContentDocumentDaoImpl extends AbstractDaisyDao implements ContentD
     }
 
     @SuppressWarnings("unused")
-    private void debug(long id, DaisyGenerator daisyGenerator) {
-        if (id == 712) {
-            Pipeline<SAXPipelineComponent> pipeline = new NonCachingPipeline<SAXPipelineComponent>();
-            pipeline.addComponent(daisyGenerator);
-            pipeline.addComponent(XMLSerializer.createXMLSerializer());
+    public static void debug(String id, DaisyGenerator daisyGenerator) {
 
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            pipeline.setup(baos);
-            try {
-                pipeline.execute();
-                System.out.println("result=\n" + new String(baos.toByteArray(), "UTF-8"));
-            } catch (UnsupportedEncodingException e1) {
-                e1.printStackTrace();
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
+        Pipeline<SAXPipelineComponent> pipeline = new NonCachingPipeline<SAXPipelineComponent>();
+        pipeline.addComponent(daisyGenerator);
+        pipeline.addComponent(XMLSerializer.createXMLSerializer());
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        pipeline.setup(baos);
+        try {
+            pipeline.execute();
+            System.out.println("result=\n" + new String(baos.toByteArray(), "UTF-8"));
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
     }
 }
