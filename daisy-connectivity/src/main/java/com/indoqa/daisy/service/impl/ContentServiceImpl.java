@@ -30,6 +30,24 @@ public class ContentServiceImpl implements ContentService {
     @Autowired
     private BinaryDocumentDao binaryDocumentDao;
 
+    private static String createRelativizer(String path) {
+        if (StringUtils.isBlank(path)) {
+            return "";
+        }
+
+        String result = path;
+        if (!result.startsWith("/")) {
+            result = "/" + result;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < StringUtils.countMatches(path, "/"); i++) {
+            sb.append("../");
+        }
+
+        return sb.toString();
+    }
+
     @Override
     public List<ContentDocument> find(String query, Locale locale) {
         List<String> docIds = this.contentDocumentDao.find(query, locale);
@@ -78,6 +96,10 @@ public class ContentServiceImpl implements ContentService {
     public NavigationElement[] getMenuNavigationElementsForPath(String path, Locale locale) {
         NavigationElement currentElement = this.getNavigation(locale).getNavigationElementByPath(path);
 
+        if (currentElement == null) {
+            return new NavigationElement[0];
+        }
+
         // navigate to the element one above the root element
         while (currentElement.getParent() != null && !currentElement.getParent().isRoot()) {
             currentElement = currentElement.getParent();
@@ -113,23 +135,5 @@ public class ContentServiceImpl implements ContentService {
 
     private Navigation getNavigation(Locale locale) {
         return this.navigationDao.get(this.navigationDao.getNavDocId(), locale);
-    }
-
-    private static String createRelativizer(String path) {
-        if (StringUtils.isBlank(path)) {
-            return "";
-        }
-
-        String result = path;
-        if (!result.startsWith("/")) {
-            result = "/" + result;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < StringUtils.countMatches(path, "/"); i++) {
-            sb.append("../");
-        }
-
-        return sb.toString();
     }
 }
