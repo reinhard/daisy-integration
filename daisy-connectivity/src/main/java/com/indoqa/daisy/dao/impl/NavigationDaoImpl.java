@@ -26,6 +26,7 @@ import com.indoqa.daisy.pipeline.DaisyGenerator;
 @Repository
 public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao {
 
+    @Override
     public Navigation get(String id, Locale locale) {
         return new Navigation().setRoot(this.parseDocument(this.getNavigationDocument(id, locale)));
     }

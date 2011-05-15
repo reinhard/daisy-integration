@@ -52,8 +52,20 @@ public class ContentServiceImpl implements ContentService {
     public List<ContentDocument> find(String query, Locale locale) {
         List<String> docIds = this.contentDocumentDao.find(query, locale);
 
+        // check if the result documents exist
+        List<String> existingDocIds = new ArrayList<String>();
+        Navigation navigation = this.getNavigation(locale);
+        for (String docId : docIds) {
+            NavigationElement navigationElement = navigation.getNavigationElementByDocumentId(docId);
+
+            if (navigationElement != null && StringUtils.isNotEmpty(navigationElement.getDocumentId())) {
+                existingDocIds.add(docId);
+            }
+        }
+
+        // load the document
         List<ContentDocument> results = new ArrayList<ContentDocument>();
-        for (String documentId : docIds) {
+        for (String documentId : existingDocIds) {
             results.add(this.getContentDocument(documentId, locale, "", null));
         }
 
