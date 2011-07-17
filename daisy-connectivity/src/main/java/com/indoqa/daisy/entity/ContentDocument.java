@@ -19,6 +19,7 @@ public class ContentDocument extends DaisyDomainObject {
     private String author;
     private String lastModified;
     private String created;
+    private NavigationElement navigationElement;
 
     public void addContentPart(ContentPart contentPart) {
         this.contentParts.put(contentPart.getType(), contentPart);
@@ -64,6 +65,10 @@ public class ContentDocument extends DaisyDomainObject {
         return this.name;
     }
 
+    public NavigationElement getNavigationElement() {
+        return this.navigationElement;
+    }
+
     @Override
     public String getPath() {
         return this.path;
@@ -95,6 +100,10 @@ public class ContentDocument extends DaisyDomainObject {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setNavigationElement(NavigationElement navEl) {
+        this.navigationElement = navEl;
     }
 
     @Override

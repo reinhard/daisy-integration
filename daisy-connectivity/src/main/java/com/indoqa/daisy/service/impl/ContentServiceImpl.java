@@ -52,7 +52,7 @@ public class ContentServiceImpl implements ContentService {
     public List<ContentDocument> find(String query, Locale locale) {
         List<String> docIds = this.contentDocumentDao.find(query, locale);
 
-        // check if the result documents exist
+        // check if the result documents is part of the navigation
         List<String> existingDocIds = new ArrayList<String>();
         Navigation navigation = this.getNavigation(locale);
         for (String docId : docIds) {
@@ -141,6 +141,7 @@ public class ContentServiceImpl implements ContentService {
         if (navEl != null) {
             contentDocument.setPath(navEl.getPath());
         }
+        contentDocument.setNavigationElement(navEl);
 
         return contentDocument;
     }
