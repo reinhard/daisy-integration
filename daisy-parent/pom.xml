@@ -87,32 +87,32 @@
       <dependency>
         <groupId>org.apache.cocoon.servlet</groupId>
         <artifactId>cocoon-servlet</artifactId>
-        <version>3.0.0-alpha-2</version>
+        <version>3.0.0-alpha-3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cocoon.stringtemplate</groupId>
         <artifactId>cocoon-stringtemplate</artifactId>
-        <version>3.0.0-alpha-2</version>
+        <version>3.0.0-alpha-3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cocoon.rest</groupId>
         <artifactId>cocoon-rest</artifactId>
-        <version>3.0.0-alpha-2</version>
+        <version>3.0.0-alpha-3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cocoon.sax</groupId>
         <artifactId>cocoon-sax</artifactId>
-        <version>3.0.0-alpha-2</version>
+        <version>3.0.0-alpha-3</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cocoon.sitemap</groupId>
         <artifactId>cocoon-sitemap</artifactId>
-        <version>3.0.0-alpha-2</version>
+        <version>3.0.0-alpha-3</version>
       </dependency>
       <dependency>
-         <groupId>org.apache.cocoon</groupId>
-         <artifactId>cocoon-configuration-api</artifactId>
-         <version>1.0.2</version>
+        <groupId>org.apache.cocoon</groupId>
+        <artifactId>cocoon-configuration-api</artifactId>
+        <version>1.0.2</version>
       </dependency>
       <dependency>
         <groupId>org.apache.cocoon</groupId>
@@ -120,7 +120,7 @@
         <version>2.1.0</version>
       </dependency>
 
-      <!-- Spring (+ AOP support)-->
+      <!-- Spring (+ AOP support) -->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-beans</artifactId>
@@ -208,10 +208,10 @@
         <artifactId>commons-logging</artifactId>
         <version>1.1</version>
         <exclusions>
-    	    <exclusion>
-	          <groupId>avalon-framework</groupId>
-	          <artifactId>avalon-framework</artifactId>
-	        </exclusion>
+          <exclusion>
+            <groupId>avalon-framework</groupId>
+            <artifactId>avalon-framework</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -239,16 +239,16 @@
         <artifactId>log4j</artifactId>
         <version>1.2.14</version>
       </dependency>
-    <dependency>
-      <groupId>xerces</groupId>
-      <artifactId>xercesImpl</artifactId>
-      <version>2.9.0</version>
-    </dependency>
-    <dependency>
-      <groupId>xerces</groupId>
-      <artifactId>xmlParserAPIs</artifactId>
-      <version>2.2.1</version>
-    </dependency>
+      <dependency>
+        <groupId>xerces</groupId>
+        <artifactId>xercesImpl</artifactId>
+        <version>2.9.0</version>
+      </dependency>
+      <dependency>
+        <groupId>xerces</groupId>
+        <artifactId>xmlParserAPIs</artifactId>
+        <version>2.2.1</version>
+      </dependency>
 
       <dependency>
         <groupId>org.apache.wicket</groupId>
