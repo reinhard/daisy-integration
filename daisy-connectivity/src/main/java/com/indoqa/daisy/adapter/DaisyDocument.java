@@ -25,8 +25,6 @@ import org.xml.sax.ContentHandler;
 
 public interface DaisyDocument {
 
-    // ~~~~~~~~~~~~~~~~~~~~ properties ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
     byte[] asByteArray();
 
     String getBranchId();
@@ -34,8 +32,6 @@ public interface DaisyDocument {
     String getDocId();
 
     Document getDocument();
-
-    // ~~~~~~~~~~~~~~~~~~~~ accessing the document ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     InputStream getInputStream();
 
@@ -45,6 +41,6 @@ public interface DaisyDocument {
 
     void toSax(ContentHandler contentHandler);
 
+    @Override
     String toString();
-
 }

@@ -73,6 +73,7 @@ public class DaisyDocumentProxy implements DaisyDocument {
         return doc.getDocId() + "_" + doc.getBranchId() + "_" + doc.getLanguageId();
     }
 
+    @Override
     public byte[] asByteArray() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
@@ -87,14 +88,17 @@ public class DaisyDocumentProxy implements DaisyDocument {
         return new String(this.asByteArray());
     }
 
+    @Override
     public String getBranchId() {
         return this.branchId;
     }
 
+    @Override
     public String getDocId() {
         return this.docId;
     }
 
+    @Override
     public Document getDocument() {
         if (this.jDocument == null) {
             this.jDocument = this.repoAccessFacade.getJDocument(this.docId, this.branchId, this.languageId);
@@ -102,18 +106,22 @@ public class DaisyDocumentProxy implements DaisyDocument {
         return this.jDocument;
     }
 
+    @Override
     public InputStream getInputStream() {
         return new ByteArrayInputStream(this.asByteArray());
     }
 
+    @Override
     public String getLanguageId() {
         return this.languageId;
     }
 
+    @Override
     public boolean isNavigationDocument() {
         return this.prConfig.isNavigationDocument;
     }
 
+    @Override
     public void toSax(ContentHandler contentHandler) {
         this.repoAccessFacade.getPublisherDocument(
                 PublisherRequestDocumentBuilder.createPublisherRequestDocument(this, this.prConfig), contentHandler);

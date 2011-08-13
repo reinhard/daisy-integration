@@ -18,4 +18,6 @@ public interface ContentService {
     ContentDocument getContentDocumentByPath(String path, Locale locale);
 
     NavigationElement[] getMenuNavigationElementsForPath(String path, Locale locale);
+
+    NavigationElement getRootNavigationElement(Locale locale);
 }

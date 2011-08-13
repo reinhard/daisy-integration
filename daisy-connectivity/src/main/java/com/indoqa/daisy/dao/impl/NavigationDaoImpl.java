@@ -28,7 +28,8 @@ public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao
 
     @Override
     public Navigation get(String id, Locale locale) {
-        return new Navigation().setRoot(this.parseDocument(this.getNavigationDocument(id, locale)));
+        // Multi-language support hasn't been added yet, hence the locale isn't used.
+        return new Navigation().setRoot(this.parseDocument(this.getNavigationDocument(id)));
     }
 
     @Override
@@ -36,7 +37,7 @@ public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao
         return super.getNavDocId();
     }
 
-    protected String getNavigationDocument(String id, Locale locale) {
+    protected String getNavigationDocument(String id) {
         // prepare components
         DaisyGenerator daisyGenerator = new DaisyGenerator();
         daisyGenerator.setDocumentId(id);
@@ -68,70 +69,7 @@ public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao
         navElStack.push(root);
 
         pipeline.addComponent(new XMLGenerator(navigationDocument));
-        pipeline.addComponent(new AbstractSAXSerializer() {
-
-            @Override
-            public void endElement(String uri, String loc, String raw) throws SAXException {
-                if ("doc".equals(loc) || "group".equals(loc)) {
-                    navElStack.pop();
-                }
-            }
-
-            @Override
-            public void startElement(String uri, String loc, String raw, Attributes a) throws SAXException {
-                if ("doc".equals(loc) || "group".equals(loc)) {
-                    NavigationElement parent = navElStack.peek();
-                    NavigationElement navigationElement = new NavigationElement(parent);
-                    navElStack.push(navigationElement);
-
-                    navigationElement.setDocumentId(a.getValue("documentId"));
-                    navigationElement.setId(this.getId(a));
-                    navigationElement.setLabel(a.getValue("label"));
-                    navigationElement.setPath(this.calcPath(a, parent.getPath()));
-                    navigationElement.setOriginalPath(this.calcOriginalPath(a));
-                }
-            }
-
-            private String calcOriginalPath(Attributes a) {
-                String originalPath = a.getValue("path");
-
-                if (originalPath.startsWith("/")) {
-                    return originalPath.substring(1);
-                }
-
-                return originalPath;
-            }
-
-            private String calcPath(Attributes a, String parentPath) {
-                String id = this.getId(a);
-                String path = id;
-
-                // rewrite nodes that use the document id
-                if (id != null && id.endsWith("-" + NavigationDaoImpl.this.getDaisyNamespace())) {
-                    path = a.getValue("label");
-                }
-
-                // rewrite nodes that have an automatically generated id
-                else if (id != null && id.startsWith("g") && NumberUtils.isDigits(id.substring(1))) {
-                    path = a.getValue("label");
-                }
-
-                // rewrite nodes that have an automatically generated id (Daisy <= 1.5.1)
-                else if (id != null && id.startsWith("qn")) {
-                    id = id.substring(2);
-                }
-
-                String calcPath = parentPath + "/" + URLStringUtils.clean(path);
-                if (calcPath.startsWith("/")) {
-                    return calcPath.substring(1);
-                }
-                return calcPath;
-            }
-
-            private String getId(Attributes a) {
-                return a.getValue("id");
-            }
-        });
+        pipeline.addComponent(new DaisyNavigationDocumentParser(navElStack));
 
         pipeline.setup(new NullOutputStream());
         try {
@@ -141,5 +79,76 @@ public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao
         }
 
         return root;
+    }
+
+    protected final class DaisyNavigationDocumentParser extends AbstractSAXSerializer {
+
+        private final Stack<NavigationElement> navElStack;
+
+        protected DaisyNavigationDocumentParser(Stack<NavigationElement> navElStack) {
+            this.navElStack = navElStack;
+        }
+
+        @Override
+        public void endElement(String uri, String loc, String raw) throws SAXException {
+            if ("doc".equals(loc) || "group".equals(loc)) {
+                this.navElStack.pop();
+            }
+        }
+
+        @Override
+        public void startElement(String uri, String loc, String raw, Attributes a) throws SAXException {
+            if ("doc".equals(loc) || "group".equals(loc)) {
+                NavigationElement parent = this.navElStack.peek();
+                NavigationElement navigationElement = new NavigationElement(parent);
+                this.navElStack.push(navigationElement);
+
+                navigationElement.setDocumentId(a.getValue("documentId"));
+                navigationElement.setId(this.getId(a));
+                navigationElement.setLabel(a.getValue("label"));
+                navigationElement.setPath(this.calcPath(a, parent.getPath()));
+                navigationElement.setOriginalPath(this.calcOriginalPath(a));
+            }
+        }
+
+        private String calcOriginalPath(Attributes a) {
+            String originalPath = a.getValue("path");
+
+            if (originalPath.startsWith("/")) {
+                return originalPath.substring(1);
+            }
+
+            return originalPath;
+        }
+
+        private String calcPath(Attributes a, String parentPath) {
+            String id = this.getId(a);
+            String path = id;
+
+            // rewrite nodes that use the document id
+            if (id != null && id.endsWith("-" + NavigationDaoImpl.this.getDaisyNamespace())) {
+                path = a.getValue("label");
+            }
+
+            // rewrite nodes that have an automatically generated id
+            else if (id != null && id.startsWith("g") && NumberUtils.isDigits(id.substring(1))) {
+                path = a.getValue("label");
+            }
+
+            // rewrite nodes that have an automatically generated id (Daisy <= 1.5.1)
+            else if (id != null && id.startsWith("qn")) {
+                id = id.substring(2);
+            }
+
+            String calcPath = parentPath + "/" + URLStringUtils.clean(path);
+            if (calcPath.startsWith("/")) {
+                return calcPath.substring(1);
+            }
+            return calcPath;
+        }
+
+        private String getId(Attributes a) {
+            return a.getValue("id");
+        }
     }
 }

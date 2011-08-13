@@ -71,6 +71,7 @@ public class CacheRefreshManagerImpl implements CacheRefreshManager {
             this.cachingAspect = cachingAspect;
         }
 
+        @Override
         public void run() {
             CacheRefreshManagerImpl.this.executeCacheRefreshJob(this.joinPoint, this.cacheKey, this.cachingAspect);
         }

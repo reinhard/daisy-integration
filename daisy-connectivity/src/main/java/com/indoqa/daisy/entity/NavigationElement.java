@@ -29,6 +29,17 @@ public class NavigationElement implements Serializable {
     }
 
     private NavigationElement() {
+        // no external instantiation without a parent element
+    }
+
+    public static NavigationElement createRoot() {
+        NavigationElement navigationElement = new NavigationElement();
+
+        navigationElement.setPath("");
+        navigationElement.setLabel("Root");
+        navigationElement.setRoot(true);
+
+        return navigationElement;
     }
 
     public void addChild(NavigationElement navigationElement) {
@@ -94,15 +105,5 @@ public class NavigationElement implements Serializable {
     @Override
     public String toString() {
         return "[" + this.getDocumentId() + "] path=" + this.getPath();
-    }
-
-    public static NavigationElement createRoot() {
-        NavigationElement navigationElement = new NavigationElement();
-
-        navigationElement.setPath("");
-        navigationElement.setLabel("Root");
-        navigationElement.setRoot(true);
-
-        return navigationElement;
     }
 }

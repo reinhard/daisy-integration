@@ -18,7 +18,6 @@
  */
 package com.indoqa.daisy.adapter;
 
-import org.apache.commons.httpclient.HttpRecoverableException;
 import org.outerj.daisy.publisher.BlobInfo;
 import org.outerj.daisy.publisher.Publisher;
 import org.outerj.daisy.repository.Document;
@@ -52,13 +51,14 @@ public class DaisyRepositoryAccessFacade extends AbstractDaisyRepositoryAccessFa
 
     public BlobInfo getPartAsBlob(String documentId, long branchId, long languageId, String version, String partType) {
         BlobInfo blobInfo = null;
+
         for (int i = 0; i <= this.getNumOfRetries(); i++) {
             Publisher publisher = (Publisher) this.getRepository().getExtension("Publisher");
             try {
                 blobInfo = publisher.getBlobInfo(new VariantKey(documentId, branchId, languageId), version, partType);
                 break;
             } catch (RepositoryException e) {
-                if (i == this.getNumOfRetries() || !(e.getCause() instanceof HttpRecoverableException)) {
+                if (i == this.getNumOfRetries()) {
                     throw new DaisyClientException("A problem occurred while using the publisher.", e);
                 }
             }
@@ -73,7 +73,7 @@ public class DaisyRepositoryAccessFacade extends AbstractDaisyRepositoryAccessFa
                 publisher.processRequest(prDoc, handler);
                 break;
             } catch (Exception e) {
-                if (i == this.getNumOfRetries() || !(e.getCause() instanceof HttpRecoverableException)) {
+                if (i == this.getNumOfRetries()) {
                     throw new DaisyClientException("A problem occurred while using the publisher.", e);
                 }
             }
@@ -87,5 +87,4 @@ public class DaisyRepositoryAccessFacade extends AbstractDaisyRepositoryAccessFa
     public UserManager getUserManager() {
         return this.getRepository().getUserManager();
     }
-
 }

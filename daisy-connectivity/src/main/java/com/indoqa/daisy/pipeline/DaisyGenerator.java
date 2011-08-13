@@ -5,6 +5,7 @@ package com.indoqa.daisy.pipeline;
  */
 public class DaisyGenerator extends AbstractDaisyProducer {
 
+    @Override
     public void execute() {
         this.getDaisyDocument().toSax(this.getSAXConsumer());
     }

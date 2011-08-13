@@ -131,6 +131,11 @@ public class ContentServiceImpl implements ContentService {
         return elements.toArray(new NavigationElement[elements.size()]);
     }
 
+    @Override
+    public NavigationElement getRootNavigationElement(Locale locale) {
+        return this.getNavigation(locale).getRoot();
+    }
+
     private ContentDocument getContentDocument(String documentId, Locale locale, String pathRelativizer,
             Map<String, String> linkRewriteTranslationTable) {
         ContentDocument contentDocument = this.contentDocumentDao

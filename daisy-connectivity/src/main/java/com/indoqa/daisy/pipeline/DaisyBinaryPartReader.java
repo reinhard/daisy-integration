@@ -22,10 +22,12 @@ public class DaisyBinaryPartReader extends AbstractDaisyProducer implements Fini
     private OutputStream outputStream;
     private long lastModificationTime;
 
+    @Override
     public CacheKey constructCacheKey() {
         return new DaisyDocumentPartCacheKey(this.documentId, this.part, this.getDaisyDocument().getDocument().getLastModified());
     }
 
+    @Override
     public void execute() {
         Document document = null;
         try {
@@ -49,6 +51,7 @@ public class DaisyBinaryPartReader extends AbstractDaisyProducer implements Fini
         }
     }
 
+    @Override
     public String getContentType() {
         return this.attachementDataPart.getMimeType();
     }
@@ -68,6 +71,7 @@ public class DaisyBinaryPartReader extends AbstractDaisyProducer implements Fini
         this.fileName = fileName;
     }
 
+    @Override
     public void setOutputStream(OutputStream os) {
         this.outputStream = os;
     }
@@ -97,10 +101,12 @@ public class DaisyBinaryPartReader extends AbstractDaisyProducer implements Fini
             return this.id == other.id && this.partName.equals(other.partName);
         }
 
+        @Override
         public String getJmxGroupName() {
             return this.jmxGroupName;
         }
 
+        @Override
         public long getLastModified() {
             return this.getTimestamp().getTime();
         }
@@ -114,10 +120,12 @@ public class DaisyBinaryPartReader extends AbstractDaisyProducer implements Fini
             return new HashCodeBuilder().append(this.id).append(this.partName).toHashCode();
         }
 
+        @Override
         public boolean hasJmxGroupName() {
             return false;
         }
 
+        @Override
         public boolean isValid(CacheKey cacheKey) {
             if (!this.equals(cacheKey)) {
                 return false;
@@ -127,6 +135,7 @@ public class DaisyBinaryPartReader extends AbstractDaisyProducer implements Fini
             return this.timestamp == other.timestamp;
         }
 
+        @Override
         public void setJmxGroupName(String jmxGroupName) {
             this.jmxGroupName = jmxGroupName;
         }

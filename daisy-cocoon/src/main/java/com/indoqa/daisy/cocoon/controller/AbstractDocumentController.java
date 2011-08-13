@@ -16,6 +16,7 @@ public abstract class AbstractDocumentController implements Get {
 
     private ResourceRepository repository;
 
+    @Override
     public RestResponse doGet() throws Exception {
         String decodedPath = URLDecoder.decode(this.path, "iso-8859-1");
         String id = this.repository.getResourcesByPath().get("/" + decodedPath);

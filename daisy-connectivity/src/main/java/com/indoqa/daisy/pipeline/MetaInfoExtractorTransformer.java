@@ -45,7 +45,7 @@ public class MetaInfoExtractorTransformer extends AbstractSAXTransformer {
     }
 
     @Override
-    public void endElement(String uri, String localName, String name) throws SAXException {
+    public void endElement(String uri, String localName, String elementName) throws SAXException {
         if (NS_DAISY.equals(uri)) {
             if (EL_FIELD.equals(localName)) {
                 this.inField = false;
@@ -56,7 +56,7 @@ public class MetaInfoExtractorTransformer extends AbstractSAXTransformer {
             }
         }
 
-        super.endElement(uri, localName, name);
+        super.endElement(uri, localName, elementName);
     }
 
     public String getAuthor() {
@@ -92,7 +92,7 @@ public class MetaInfoExtractorTransformer extends AbstractSAXTransformer {
     }
 
     @Override
-    public void startElement(String uri, String localName, String name, Attributes atts) throws SAXException {
+    public void startElement(String uri, String localName, String elementName, Attributes atts) throws SAXException {
         if (this.inField) {
             if ("link".equals(localName)) {
                 this.currentField.addDocumentId(atts.getValue("documentId"));
@@ -129,6 +129,6 @@ public class MetaInfoExtractorTransformer extends AbstractSAXTransformer {
             }
         }
 
-        super.startElement(uri, localName, name, atts);
+        super.startElement(uri, localName, elementName, atts);
     }
 }

@@ -1,7 +1,7 @@
 /*
  * Licensed to the Outerthought bvba and Schaubroeck NV under one
  * or more contributor license agreements. See the NOTICE file
- * distributed with this work for additional information  regarding 
+ * distributed with this work for additional information  regarding
  * copyright ownership.  Outerthought bvba and Schaubroeck NV license
  * this file to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
@@ -14,7 +14,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
- * under the License. 
+ * under the License.
  */
 package com.indoqa.daisy.adapter.util;
 
@@ -23,8 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -43,50 +43,50 @@ import org.w3c.dom.Document;
 import com.indoqa.daisy.adapter.transformer.XsltTransformerSource;
 
 public class XMLUtils {
-    
-    private static Map templatesMap = new HashMap();
 
-    public static void transform(final InputStream xmlIn, final OutputStream xmlOut, 
-            final XsltTransformerSource transformerSource, final Map params) {
-        
-        String xsltUrl = transformerSource.getUrl();        
+    private static final Map<String, Templates> TEMPLATES = new HashMap<String, Templates>();
+
+    public static void transform(final InputStream xmlIn, final OutputStream xmlOut, final XsltTransformerSource transformerSource,
+            final Map<String, Object> params) {
+        String xsltUrl = transformerSource.getUrl();
         try {
             TransformerFactory factory = TransformerFactory.newInstance();
-            Templates template = (Templates) templatesMap.get(xsltUrl);
-            if(template == null) {
-                template = factory.newTemplates(new StreamSource(transformerSource.getInputStream()));         
-                templatesMap.put(xsltUrl, template);
+            Templates template = TEMPLATES.get(xsltUrl);
+            if (template == null) {
+                template = factory.newTemplates(new StreamSource(transformerSource.getInputStream()));
+                TEMPLATES.put(xsltUrl, template);
             }
-            
+
             Transformer xsltTransformer = template.newTransformer();
             Source source = new StreamSource(xmlIn);
             Result result = new StreamResult(xmlOut);
 
-            if(params != null) {
-                for(Iterator it = params.keySet().iterator(); it.hasNext();) {
-                    String key = (String) it.next();
-                    Object value = params.get(key);
-                    xsltTransformer.setParameter(key, value);
+            if (params != null) {
+                for (Entry<String, Object> param : params.entrySet()) {
+                    xsltTransformer.setParameter(param.getKey(), param.getValue());
                 }
             }
-            
+
             xsltTransformer.transform(source, result);
-            
+
         } catch (TransformerConfigurationException e) {
-            throw new com.indoqa.daisy.adapter.transformer.TransformerException("An error occurred in the XSL file (" + xsltUrl + ").", e);
-            
+            throw new com.indoqa.daisy.adapter.transformer.TransformerException(
+                    "An error occurred in the XSL file (" + xsltUrl + ").", e);
+
         } catch (TransformerException e) {
             SourceLocator locator = e.getLocator();
             int col = locator.getColumnNumber();
             int line = locator.getLineNumber();
-            throw new com.indoqa.daisy.adapter.transformer.TransformerException("An error occurred while applying the XSLT file (" + 
-                    xsltUrl + ") at line " + line + " in column " + col + ".", e);
-            
+
+            throw new com.indoqa.daisy.adapter.transformer.TransformerException("An error occurred while applying the XSLT file ("
+                    + xsltUrl + ") at line " + line + " in column " + col + ".", e);
+
         } catch (IOException e) {
-            throw new com.indoqa.daisy.adapter.transformer.TransformerException("An error occurred while reading the XSL file (" + xsltUrl + ").", e);
+            throw new com.indoqa.daisy.adapter.transformer.TransformerException("An error occurred while reading the XSL file ("
+                    + xsltUrl + ").", e);
         }
-    }    
-    
+    }
+
     public static void writeDom(Document doc, File file) {
         try {
             Source source = new DOMSource(doc);
@@ -94,10 +94,9 @@ public class XMLUtils {
             Transformer xformer = TransformerFactory.newInstance().newTransformer();
             xformer.transform(source, result);
         } catch (TransformerConfigurationException e) {
-            throw new com.indoqa.daisy.adapter.transformer.TransformerException("An error occurred while reading (" + file + ").", e);            
+            throw new com.indoqa.daisy.adapter.transformer.TransformerException("An error occurred while reading (" + file + ").", e);
         } catch (TransformerException e) {
-            throw new com.indoqa.daisy.adapter.transformer.TransformerException("An error occurred while reading (" + file + ").", e);                
+            throw new com.indoqa.daisy.adapter.transformer.TransformerException("An error occurred while reading (" + file + ").", e);
         }
-    }        
-    
+    }
 }
