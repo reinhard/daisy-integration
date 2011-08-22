@@ -37,7 +37,7 @@ public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao
         return super.getNavDocId();
     }
 
-    protected String getNavigationDocument(String id) {
+    protected byte[] getNavigationDocument(String id) {
         // prepare components
         DaisyGenerator daisyGenerator = new DaisyGenerator();
         daisyGenerator.setDocumentId(id);
@@ -55,20 +55,20 @@ public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao
         daisyPipeline.setup(baos);
         try {
             daisyPipeline.execute();
-            return new String(baos.toByteArray());
+            return baos.toByteArray();
         } catch (Exception e) {
             throw new DaisyException("Can't execute a Cocoon pipeline that accesses a Daisy document. id=" + id);
         }
     }
 
-    private NavigationElement parseDocument(String navigationDocument) {
+    private NavigationElement parseDocument(byte[] content) {
         Pipeline<SAXPipelineComponent> pipeline = new NonCachingPipeline<SAXPipelineComponent>();
 
         final Stack<NavigationElement> navElStack = new Stack<NavigationElement>();
         final NavigationElement root = NavigationElement.createRoot();
         navElStack.push(root);
 
-        pipeline.addComponent(new XMLGenerator(navigationDocument));
+        pipeline.addComponent(new XMLGenerator(content));
         pipeline.addComponent(new DaisyNavigationDocumentParser(navElStack));
 
         pipeline.setup(new NullOutputStream());
@@ -91,23 +91,19 @@ public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao
 
         @Override
         public void endElement(String uri, String loc, String raw) throws SAXException {
-            if ("doc".equals(loc) || "group".equals(loc)) {
+            if ("doc".equals(loc) || "group".equals(loc) || "separator".equals(loc)) {
                 this.navElStack.pop();
             }
         }
 
         @Override
         public void startElement(String uri, String loc, String raw, Attributes a) throws SAXException {
-            if ("doc".equals(loc) || "group".equals(loc)) {
-                NavigationElement parent = this.navElStack.peek();
-                NavigationElement navigationElement = new NavigationElement(parent);
-                this.navElStack.push(navigationElement);
+            NavigationElement parent = this.navElStack.peek();
 
-                navigationElement.setDocumentId(a.getValue("documentId"));
-                navigationElement.setId(this.getId(a));
-                navigationElement.setLabel(a.getValue("label"));
-                navigationElement.setPath(this.calcPath(a, parent.getPath()));
-                navigationElement.setOriginalPath(this.calcOriginalPath(a));
+            if ("separator".equals(loc)) {
+                this.createSeparatorNavigationElement(parent);
+            } else if ("doc".equals(loc) || "group".equals(loc)) {
+                this.createDocOrGroupNavigationElement(a, parent);
             }
         }
 
@@ -145,6 +141,24 @@ public class NavigationDaoImpl extends AbstractDaisyDao implements NavigationDao
                 return calcPath.substring(1);
             }
             return calcPath;
+        }
+
+        private void createDocOrGroupNavigationElement(Attributes a, NavigationElement parent) {
+            NavigationElement navigationElement = new NavigationElement(parent);
+            navigationElement.setDocumentId(a.getValue("documentId"));
+            navigationElement.setId(this.getId(a));
+            navigationElement.setLabel(a.getValue("label"));
+            navigationElement.setPath(this.calcPath(a, this.navElStack.peek().getPath()));
+            navigationElement.setOriginalPath(this.calcOriginalPath(a));
+
+            this.navElStack.push(navigationElement);
+        }
+
+        private void createSeparatorNavigationElement(NavigationElement parent) {
+            NavigationElement navigationElement = new NavigationElement(parent);
+            navigationElement.setSeparator(true);
+
+            this.navElStack.push(navigationElement);
         }
 
         private String getId(Attributes a) {

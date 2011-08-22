@@ -20,6 +20,8 @@ public class NavigationElement implements Serializable {
 
     private String path;
 
+    private boolean separator;
+
     public NavigationElement(NavigationElement parent) {
         Validate.notNull(parent, "A parent navigation element has to be passed. Use the 'createRoot'"
                 + " method to create a root navigation element.");
@@ -78,6 +80,10 @@ public class NavigationElement implements Serializable {
         return this.root;
     }
 
+    public boolean isSeparator() {
+        return this.separator;
+    }
+
     public void setDocumentId(String documentId) {
         this.documentId = documentId;
     }
@@ -100,6 +106,10 @@ public class NavigationElement implements Serializable {
 
     public void setRoot(boolean root) {
         this.root = root;
+    }
+
+    public void setSeparator(boolean separator) {
+        this.separator = separator;
     }
 
     @Override
