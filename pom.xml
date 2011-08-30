@@ -24,8 +24,8 @@
   </modules>
 
   <scm>
-    <connection>scm:svn:http://svn.dev.indoqa.com/projects/daisy/trunk</connection>
-    <developerConnection>scm:svn:http://svn.dev.indoqa.com/projects/daisy/trunk</developerConnection>
-    <url>http://svn.dev.indoqa.com/projects/daisy/trunk</url>
+    <connection>scm:git:git://github.com/reinhard/indoqa-wadldoc-maven-plugin.git</connection>
+    <url>https://github.com/reinhard/indoqa-wadldoc-maven-plugin</url>
+    <developerConnection>scm:git:git://github.com/reinhard/indoqa-wadldoc-maven-plugin.git</developerConnection>
   </scm>
 </project>

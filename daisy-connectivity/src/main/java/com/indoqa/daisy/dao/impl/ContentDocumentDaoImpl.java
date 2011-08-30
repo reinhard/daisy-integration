@@ -1,7 +1,6 @@
 package com.indoqa.daisy.dao.impl;
 
 import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -176,25 +175,6 @@ public class ContentDocumentDaoImpl extends AbstractDaisyDao implements ContentD
             return new String(newBaos.toByteArray(), "utf-8");
         } catch (Exception e) {
             throw new DaisyException("Can't execute a Cocoon pipeline that accesses a Daisy document.", e);
-        }
-    }
-
-    @SuppressWarnings("unused")
-    public static void debug(String id, DaisyGenerator daisyGenerator) {
-
-        Pipeline<SAXPipelineComponent> pipeline = new NonCachingPipeline<SAXPipelineComponent>();
-        pipeline.addComponent(daisyGenerator);
-        pipeline.addComponent(XMLSerializer.createXMLSerializer());
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        pipeline.setup(baos);
-        try {
-            pipeline.execute();
-            System.out.println("result=\n" + new String(baos.toByteArray(), "UTF-8"));
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
-        } catch (Exception e1) {
-            e1.printStackTrace();
         }
     }
 }
