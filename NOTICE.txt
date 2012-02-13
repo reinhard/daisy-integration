@@ -1,5 +1,5 @@
 Daisy Integration
-Copyright 2011 Indoqa Software Design und Beratung GmbH
+Copyright 2011-2012 Indoqa Software Design und Beratung GmbH
 
 This product includes software developed at
 The Apache Software Foundation (http://www.apache.org/).
