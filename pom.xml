@@ -13,7 +13,7 @@
   <artifactId>daisy-root</artifactId>
   <version>1.5.1.1-SNAPSHOT</version>
   
-  <name>Indoqa Daisy: Root</name>
+  <name>Indoqa Daisy 1.5: Root</name>
   
   <modules>
     <module>daisy-caching</module>
