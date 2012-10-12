@@ -123,18 +123,6 @@ public class ContentDocumentDaoImpl extends AbstractDaisyDao implements ContentD
 
         // set fields
         Map<String, ContentField> fields = metaInfoExtractorTransformer.getFields();
-        for (ContentField field : fields.values()) {
-            for (int i = 0; i < field.getDocumentIds().size(); i++) {
-                String documentId = field.getDocumentIds().get(i);
-                ContentDocument fieldDoc;
-                if (documentId.equals(id)) {
-                    fieldDoc = contentDocument;
-                } else {
-                    fieldDoc = this.getContentDocument(documentId, locale, pathRelativizer, linkRewriteTranslationTable);
-                }
-                field.addDocument(fieldDoc);
-            }
-        }
         contentDocument.setFields(fields);
 
         return contentDocument;
