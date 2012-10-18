@@ -6,6 +6,8 @@ import java.util.Locale;
 import org.apache.cocoon.pipeline.NonCachingPipeline;
 import org.apache.cocoon.pipeline.Pipeline;
 import org.apache.cocoon.sax.SAXPipelineComponent;
+import org.outerj.daisy.repository.Document;
+import org.outerj.daisy.repository.Part;
 import org.springframework.stereotype.Repository;
 
 import com.indoqa.daisy.dao.BinaryDocumentDao;
@@ -20,6 +22,13 @@ public class BinaryDocumentDaoImpl extends AbstractDaisyDao implements BinaryDoc
     @Override
     public BinaryDocument get(String id, Locale locale, String part, String fileName) {
         return this.getBinaryDocument(id, locale, part, fileName);
+    }
+
+    @Override
+    public String getFileName(String id, String partName, Locale locale) {
+        Document jDocument = this.getDaisyRepositoryAccessFacade().getJDocument(id);
+        Part part = jDocument.getPart(partName);
+        return part.getFileName();
     }
 
     protected BinaryDocument getBinaryDocument(String id, Locale locale, String part, String fileName) {

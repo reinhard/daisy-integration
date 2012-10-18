@@ -14,7 +14,6 @@ public class ContentField implements Serializable {
     private List<String> documentIds = new ArrayList<String>();
     private List<String> languageIds = new ArrayList<String>();
     private List<String> brancheIds = new ArrayList<String>();
-    private List<ContentDocument> documents = new ArrayList<ContentDocument>();
 
     public ContentField() {
         this(null, null);
@@ -27,10 +26,6 @@ public class ContentField implements Serializable {
 
     public void addBranchId(String branchId) {
         this.brancheIds.add(branchId);
-    }
-
-    public void addDocument(ContentDocument document) {
-        this.documents.add(document);
     }
 
     public void addDocumentId(String documentId) {
@@ -51,10 +46,6 @@ public class ContentField implements Serializable {
 
     public List<String> getDocumentIds() {
         return this.documentIds;
-    }
-
-    public List<ContentDocument> getDocuments() {
-        return this.documents;
     }
 
     public List<String> getLanguageIds() {
